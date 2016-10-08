@@ -53,7 +53,8 @@ class DistributionBuilder {
         }
     }
 
-    labelize(obj) {
+    labelize(o) {
+        var obj = o ? o : {};
         let values = [];
         if (obj.hasOwnProperty('labels')) {
             values = obj.labels

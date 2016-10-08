@@ -158,9 +158,11 @@
 	            }
 	        }
 	    });
-
 	    distbuilder5.render("targetdiv5");
 	    distbuilder5.labelize({});
+	    $j("#SubmitDistribution").click(function () {
+	        alert(distbuilder5.getDistribution());
+	    });
 	});
 
 /***/ },
@@ -243,9 +245,10 @@
 	        }
 	    }, {
 	        key: 'labelize',
-	        value: function labelize(obj) {
+	        value: function labelize(o) {
 	            var _this = this;
 
+	            var obj = o ? o : {};
 	            var values = [];
 	            if (obj.hasOwnProperty('labels')) {
 	                values = obj.labels;

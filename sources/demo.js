@@ -98,9 +98,9 @@ $j(document).ready(() => {
                 }
             }
         });
-
-
         distbuilder5.render("targetdiv5");
         distbuilder5.labelize({});
+        $j("#SubmitDistribution").click(function() {alert(distbuilder5.getDistribution())});
+
     }
 );

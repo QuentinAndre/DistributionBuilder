@@ -128,9 +128,10 @@
 	        }
 	    }, {
 	        key: 'labelize',
-	        value: function labelize(obj) {
+	        value: function labelize(o) {
 	            var _this = this;
 
+	            var obj = o ? o : {};
 	            var values = [];
 	            if (obj.hasOwnProperty('labels')) {
 	                values = obj.labels;
