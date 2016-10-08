@@ -1,0 +1,88 @@
+/* Distbuilder */
+
+.distbuilder {
+    border-width: 2px;
+    border-color: grey;
+    border-style: solid;
+    padding: 2px;
+}
+
+/* Grid */
+
+.distbuilder > .grid {
+    background-color: lightsteelblue;
+    width: 100%;
+    padding-bottom: 2px;
+    padding-top: 5px;
+}
+
+.distbuilder > .grid > .distrow {
+    display: table;
+    width: 100%;
+    position: relative;
+    margin-bottom: 3px;
+}
+
+.distbuilder > .grid > .distrow > .cell {
+    width: 10px;
+    float: left;
+    margin-bottom: 1px;
+    height: 10px;
+    border: 1px solid white;
+    border-radius: 50%;
+}
+
+.distbuilder > .grid > .distrow > .filled{
+    background-color: #FF4500;
+}
+
+
+/* Labels */
+
+.distbuilder > .labels {
+    background-color: steelblue;
+    width: 100%;
+}
+
+.distbuilder > .labels > .distrow {
+    display: table;
+    width: 100%;
+}
+
+.distbuilder > .labels > .distrow > .label {
+    color: white;
+    float: left;
+    text-align: center;
+    font-size: 0.8em;
+    width: 20px;
+}
+
+/* Buttons */
+
+.distbuilder > .buttons {
+    background-color: steelblue;
+    width: 100%;
+}
+
+.distbuilder > .buttons > .distrow {
+    display: table;
+    width: 100%;
+}
+
+.distbuilder > .buttons > .distrow > .buttongroup {
+    text-align: center;
+    width: 20px;
+    float: left;
+    padding-bottom: 5px;
+}
+
+
+.distbuilder > .buttons > .distrow > .buttongroup > .distbutton {
+    border-radius: 10%;
+    width: 60%;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    background-color:lightgrey;
+}
+
