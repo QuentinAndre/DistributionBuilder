@@ -63,102 +63,105 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	console.log("Test?");
 	var $j = _jquery2.default.noConflict();
 
-	var distbuilder0 = new _distributionbuilder2.default({});
-	distbuilder0.render("targetdiv0");
-	distbuilder0.labelize({});
+	$j(document).ready(function () {
+	    var distbuilder0 = new _distributionbuilder2.default({});
+	    distbuilder0.render("targetdiv0");
+	    distbuilder0.labelize({});
 
-	var distbuilder1 = new _distributionbuilder2.default({
-	    minVal: 0,
-	    maxVal: 100,
-	    nRows: 20,
-	    nBuckets: 20,
-	    nBalls: 50,
-	    onTouch: function onTouch() {
-	        console.log("Distbuilder was touched!");
-	    },
-	    onChange: function onChange() {
-	        console.log("Distbuilder was updated!");
-	    }
-	});
-
-	var distbuilder2 = new _distributionbuilder2.default({
-	    minVal: 0,
-	    maxVal: 100,
-	    nRows: 20,
-	    nBuckets: 20,
-	    nBalls: 50,
-	    onTouch: function onTouch() {
-	        console.log("Distbuilder was touched!");
-	    },
-	    onChange: function onChange() {
-	        console.log("Distbuilder was updated!");
-	    }
-	});
-
-	var distbuilder3 = new _distributionbuilder2.default({
-	    minVal: 0,
-	    maxVal: 100,
-	    nRows: 20,
-	    nBuckets: 20,
-	    nBalls: 50,
-	    onTouch: function onTouch() {
-	        console.log("Distbuilder was touched!");
-	    },
-	    onChange: function onChange() {
-	        console.log("Distbuilder was updated!");
-	    }
-	});
-
-	distbuilder1.render("targetdiv1");
-	distbuilder1.labelize({});
-	distbuilder2.render("targetdiv2", "labels-grid-buttons");
-	distbuilder2.labelize({});
-
-	distbuilder3.render("targetdiv3");
-	distbuilder3.labelize({
-	    prefix: '~',
-	    suffix: '€'
-	});
-
-	var n_balls = 20;
-	$j('#BallsLeft').text("You have " + n_balls + " balls left.");
-	$j('#BallsAllocated').text("You have allocated " + 0 + " balls.");
-	var distbuilder4 = new _distributionbuilder2.default({
-	    minVal: 0,
-	    maxVal: 100,
-	    nRows: 20,
-	    nBuckets: 20,
-	    nBalls: n_balls,
-	    onChange: function onChange() {
-	        var remainingballs = this.getRemainingBalls();
-	        var ballsallocated = n_balls - this.getRemainingBalls();
-	        $j('#BallsLeft').text("You have " + remainingballs + " balls left.");
-	        $j('#BallsAllocated').text("You have allocated " + ballsallocated + " balls.");
-	    }
-	});
-
-	distbuilder4.render("targetdiv4");
-	distbuilder4.labelize({});
-
-	var distbuilder5 = new _distributionbuilder2.default({
-	    minVal: 0,
-	    maxVal: 100,
-	    nRows: 20,
-	    nBuckets: 20,
-	    nBalls: 20,
-	    onChange: function onChange() {
-	        if (this.isComplete()) {
-	            $j("#SubmitDistribution").attr("disabled", false);
-	        } else {
-	            $j("#SubmitDistribution").attr("disabled", true);
+	    var distbuilder1 = new _distributionbuilder2.default({
+	        minVal: 0,
+	        maxVal: 100,
+	        nRows: 20,
+	        nBuckets: 20,
+	        nBalls: 50,
+	        onTouch: function onTouch() {
+	            console.log("Distbuilder was touched!");
+	        },
+	        onChange: function onChange() {
+	            console.log("Distbuilder was updated!");
 	        }
-	    }
-	});
+	    });
 
-	distbuilder5.render("targetdiv5");
-	distbuilder5.labelize({});
+	    var distbuilder2 = new _distributionbuilder2.default({
+	        minVal: 0,
+	        maxVal: 100,
+	        nRows: 20,
+	        nBuckets: 20,
+	        nBalls: 50,
+	        onTouch: function onTouch() {
+	            console.log("Distbuilder was touched!");
+	        },
+	        onChange: function onChange() {
+	            console.log("Distbuilder was updated!");
+	        }
+	    });
+
+	    var distbuilder3 = new _distributionbuilder2.default({
+	        minVal: 0,
+	        maxVal: 100,
+	        nRows: 20,
+	        nBuckets: 20,
+	        nBalls: 50,
+	        onTouch: function onTouch() {
+	            console.log("Distbuilder was touched!");
+	        },
+	        onChange: function onChange() {
+	            console.log("Distbuilder was updated!");
+	        }
+	    });
+
+	    distbuilder1.render("targetdiv1");
+	    distbuilder1.labelize({});
+	    distbuilder2.render("targetdiv2", "labels-grid-buttons");
+	    distbuilder2.labelize({});
+
+	    distbuilder3.render("targetdiv3");
+	    distbuilder3.labelize({
+	        prefix: '~',
+	        suffix: '€'
+	    });
+
+	    var n_balls = 20;
+	    $j('#BallsLeft').text("You have " + n_balls + " balls left.");
+	    $j('#BallsAllocated').text("You have allocated " + 0 + " balls.");
+	    var distbuilder4 = new _distributionbuilder2.default({
+	        minVal: 0,
+	        maxVal: 100,
+	        nRows: 20,
+	        nBuckets: 20,
+	        nBalls: n_balls,
+	        onChange: function onChange() {
+	            var remainingballs = this.getRemainingBalls();
+	            var ballsallocated = n_balls - this.getRemainingBalls();
+	            $j('#BallsLeft').text("You have " + remainingballs + " balls left.");
+	            $j('#BallsAllocated').text("You have allocated " + ballsallocated + " balls.");
+	        }
+	    });
+
+	    distbuilder4.render("targetdiv4");
+	    distbuilder4.labelize({});
+
+	    var distbuilder5 = new _distributionbuilder2.default({
+	        minVal: 0,
+	        maxVal: 100,
+	        nRows: 20,
+	        nBuckets: 20,
+	        nBalls: 20,
+	        onChange: function onChange() {
+	            if (this.isComplete()) {
+	                $j("#SubmitDistribution").attr("disabled", false);
+	            } else {
+	                $j("#SubmitDistribution").attr("disabled", true);
+	            }
+	        }
+	    });
+
+	    distbuilder5.render("targetdiv5");
+	    distbuilder5.labelize({});
+	});
 
 /***/ },
 /* 2 */
