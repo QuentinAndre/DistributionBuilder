@@ -16,7 +16,8 @@
             <div class="panel-heading"><h2>0. Motivation</h2></div>
             <div class="panel-body">
                 <p>Goldstein and Rothschild’s paper <em>'Lay understanding of probability distributions'</em> (2014)
-                   has highlighted the benefits of using graphical tools called <strong>distribution builders</strong> to
+                   has highlighted the benefits of using graphical tools called <strong>distribution builders</strong>
+                   to
                    investigate subjective probabilities, perceptions of events frequency, and confidence. However, the
                    implementation of such distribution builders in online studies is not straightforward.</p>
                 <p>This library developed by <strong>Quentin Andre</strong>, a PhD candidate in Marketing at INSEAD
@@ -307,10 +308,9 @@ distbuilder.labelize({
                 </ul>
                 <p>The two examples below demonstrate how those three methods can be used in your experiments
                    and studies.</p>
-                <h3>A. Display the number of balls allocated and the number of balls left.</h3>
-                <p>Create two <code>&lt;div&gt;</code>s called “BallsLeft” and “BallsAllocated”, and assign a
-                   function updating
-                   those <code>&lt;div&gt;</code>s to the
+                <h3>A. Displaying the number of balls allocated and the number of balls left.</h3>
+                <p>This can be achieved by creating two <code>&lt;div&gt;</code>s called “BallsLeft” and
+                   “BallsAllocated”, and assigning a function updating those <code>&lt;div&gt;</code>s to the
                     <code>onChange</code> argument of the Distribution Builder initialization function.</p>
 
                 <div class="bs-example">
@@ -347,12 +347,22 @@ var distbuilder = new DistributionBuilder({
 distbuilder.render("targetdiv");
 distbuilder.labelize();</code></pre>
                 </div>
-                <h3>B. Enable a “Submit” button only when all balls are allocated, and display the
-                    allocation of balls when that button is clicked.</h3>
-                <p>Create a <code>button</code> called “SubmitDistribution” with <code>disabled=true</code>,
-                   bind the <code>DistributionBuilder.getDistribution()</code> method to the button,
-                   and assign to the <code>onChange</code> argument a function updating the button status
-                   based on the value returned by the <code>DistributionBuilder.isComplete()</code> method.
+                <h3>B. Validating and accessing the user's distribution</h3>
+                <p>This is achieved in two steps:</p>
+                <ul>
+                    <li>
+                        Creating a <code>button</code> called “SubmitDistribution” with <code> disabled=true</code>, and
+                        binding the <code>DistributionBuilder.getDistribution()</code> method to the button. When
+                        clicked, the button will return the distribution specified by the user.
+                    </li>
+                    <li>
+                        Assigning a function that will enable or disable the button to the <code>onChange</code>
+                        argument. This is done by accessing the value returned by the <code>DistributionBuilder.isComplete()</code>
+                        method.
+                    </li>
+                </ul>
+                <p>Together, those two steps are ensuring that the distribution is fully specified before it can be
+                   validated, and that the resulting distribution can be accessed.</p>
                 <div class="bs-example">
                     <div class="row">
                         <div class="col-md-4 col-md-offset-4" style="text-align: center">
