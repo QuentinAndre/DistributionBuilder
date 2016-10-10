@@ -1,6 +1,8 @@
 /**
  * Created by Quentin on 07/10/2016.
  */
+require('./distributionbuilder.css');
+require("bootstrap-webpack!./bootstrap.config.js");
 import jQuery from 'jquery';
 var $j = jQuery.noConflict();
 import MouseHold from './../dependencies/mousehold'

@@ -1,161 +1,176 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>DistributionBuilder, a Javascript Library</title>
-    <link rel="stylesheet" href="demo/css/bootstrap.css">
-    <link rel="stylesheet" href="../distributionbuilder.css">
-    <link rel="stylesheet" href="demo/css/bs-docs.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>DistributionBuilder</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <link rel="stylesheet" href="stylesheets/distributionbuilder.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css">
+    <script src="javascripts/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h2>0. Motivation</h2></div>
-            <div class="panel-body">
-                <p>Goldstein and Rothschild’s paper <em>'Lay understanding of probability distributions'</em> (2014)
-                   has highlighted the benefits of using graphical tools called <strong>distribution builders</strong>
-                   to
-                   investigate subjective probabilities, perceptions of events frequency, and confidence. However, the
-                   implementation of such distribution builders in online studies is not straightforward.</p>
-                <p>This library developed by <strong>Quentin Andre</strong>, a PhD candidate in Marketing at INSEAD
-                   Business School, France, makes the implementation of distribution builders easy and accessible to
-                   researchers with little to no programming background.</p>
-                <p>If you are using this library and finding it useful, please let me know at
-                   quentin(dot)andre(at)insead(dot)edu. I would also be happy to implement any tweak or suggestion to
-                   the library.</p>
-            </div>
+<header>
+    <h1>DistributionBuilder</h1>
+    <p>A Javascript library for adding distribution builders to your experiments.</p>
+</header>
+
+<div id="banner">
+
+    <div class="banner-inner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/QuentinAndre" class="button fork"><strong>View On GitHub</strong></a>
+        <span class="downloads"><ul>
+            <span>Downloads:</span>
+            <li>
+                <a class="button" href="https://github.com/mattgraham/leapday/zipball/master">Full Repo</a>
+            </li>
+            <li>
+                <a class="button" href="https://github.com/mattgraham/leapday/tarball/master">TAR</a>
+            </li>
+
+        </ul></span>
+    </div>
+</div><!-- end banner -->
+<div class="wrapper">
+    <nav>
+        <ul></ul>
+    </nav>
+    <section>
+        <h1>1. Motivation</h1>
+        <p>Goldstein and Rothschild’s paper <em>'Lay understanding of probability distributions'</em> (2014) has
+            highlighted the benefits of using graphical tools called <strong>distribution builders</strong> to
+            investigate subjective probabilities, perceptions of events frequency, and confidence. However, the
+            implementation of such distribution builders in online studies is not straightforward.</p>
+        <p>The DistributionBuilder library was created to address this issue, and make the implementation of
+            distribution builders easy and accessible to researchers with little to no programming background.</p>
+        <p>This library was developed by <strong>Quentin Andre</strong>, a PhD candidate in Marketing at INSEAD Business
+            School, France. If you are using this library and finding it useful, please let me know at
+            quentin(dot)andre(at)insead(dot)edu. I would also be happy to implement any tweak or suggestion to the
+            library.</p>
+        <p>DistributionBuilder was written in the ES2015 specification of Javascript, and is transpiled in legacy code
+            for cross-browsers compatibility. It is developed upon the <a href="https://jquery.com/" target="_blank">jQuery</a>
+            library, and uses the <a href="http://getbootstrap.com/getting-started/" target="_blank">Bootstrap</a> css
+            library for styling.</p>
+        No need to add jQuery, DistributionBuilder automatically makes it available under the <code>$j</code> alias.
+
+        <h1>2. Installation</h1>
+
+        <p>To add the library to your projects and start using DistributionBuilder, just follow the instructions
+            below.</p>
+        <h2>A. Adding DistributionBuilder to a website</h2>
+        <ol>
+            <li>
+                Copy the <code>distributionbuilder.min.js</code> and the <code>distributionbuilder.css</code> on your
+                computer.
+            </li>
+            <li><p>Add the Javascript file, the stylesheet, and the <a href="http://getbootstrap.com/getting-started/">Bootstrap</a>
+                stylesheet to your html code:</p><pre><code class="html">&lt;link rel="stylesheet" href="distributionbuilder.css"&gt;
+&lt;script src="distributionbuilder.min.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"&gt;</code></pre>
+            </li>
+            <li>
+                That's it! You can now add your own distribution builders to your webpage. No need include jQuery!
+                DistributionBuilder automatically injects it, and makes it accessible under the <code>$j</code> alias.
+                Instead of typing <code>$('#Hello')</code>, type <code>$j('#Hello')</code> instead.
+            </li>
+        </ol>
+        <h2>B. Adding DistributionBuilder to a Qualtrics survey</h2>
+        <ol>
+            <li>Navigate to the "Look and Feel" section of your survey, and click on the "Advanced" tab</li>
+            <li>
+                Edit the "Header" section, and add the following lines to load the library script, the library styles,
+                and Boostrap styles:<br><pre><code class="html">&lt;link rel="stylesheet" href="https://raw.githubusercontent.com/QuentinAndre/DistributionBuilder/master/distributionbuilder.css"&gt;
+&lt;script src="https://raw.githubusercontent.com/QuentinAndre/DistributionBuilder/master/distributionbuilder.min.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"&gt;</code></pre>
+            </li>
+            <li>
+                That's it! You can now add your own distribution builders in your Qualtrics questions. No need include
+                jQuery! DistributionBuilder automatically injects it, and makes it accessible under the <code>$j</code>
+                alias. Instead of typing <code>$('#Hello')</code>, type <code>$j('#Hello')</code> instead.
+            </li>
+        </ol>
+
+
+        <h1>3. Basic usage</h1>
+
+        <p>The library is extremely easy to use: it allows you to add fully functional distribution builders in a few
+            lines of code.</p>
+        <div class="bs-example">
+            <div id="targetdiv0" style="width:50%; margin: 0 auto;"></div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading"><h2>1. Dependencies</h2></div>
-            <div class="panel-body">
-                <p>DistributionBuilder is written in the ES2015 specification of Javascript, and transpiled for
-                   cross-browsers compatibility.</p>
-                <p>It wraps:</p>
-                <ul>
-                    <li>jQuery in noConflict mode (the reference to jQuery is stored in the variable <code>$j</code>),
-                        so there
-                        is no need to add the
-                        library to your project.
-                    </li>
-                    <li>The <a href="https://remysharp.com/2006/12/15/jquery-mousehold-event">jQuery Mousehold
-                                                                                              Plugin</a>.
-                    </li>
-                </ul>
-                <p>It requires:</p>
-                <ul>
-                    <li>The <a href="https://getbootstrap.com/">Bootstrap</a> stylesheet for proper rendering.</li>
-                </ul>
-                <p>Finally, it is including its own stylesheet for easy customization and styling of the Distribution
-                   Builder.</p>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading"><h2>2. Installation</h2></div>
-            <div class="panel-body">
-                <ol>
-                    <li>Navigate to the
-                        <a href="https://github.com/QuentinAndre/quentinandre.github.io" target="_blank">source
-                                                                                                         repository</a>.
-                    </li>
-                    <li>
-                        <p>Copy the distributionbuilder.min.js file to the root of your project, or copy/paste the
-                           code in the custom Javascript section on Qualtrics. No need to add jQuery,
-                           DistributionBuilder automatically makes it available under the <code>$j</code> alias.</p>
-                    </li>
-                    <li>
-                        <p>Copy the distributionbuilder.css file to the root of your project, or copy/paste it in the
-                           custom CSS section on Qualtrics.</p>
-                    </li>
-                    <li>
-                        <p>Add the Javascript file, the stylesheet, and the <a
-                                href="http://getbootstrap.com/getting-started/">Bootstrap</a> stylesheet to your
-                           html code. If you are using Qualtrics, only add the Bootstrap stylesheet to your custom
-                           question HTML.</p>
-                    </li>
-                </ol>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading"><h2>3. Basic usage</h2></div>
-            <div class="panel-body">
-                <p>The library is extremely easy to use: to convince yourself, see the example below!</p>
-                <div class="bs-example">
-                    <div id="targetdiv0" style="width:50%; margin: 0 auto;">
-                    </div>
-                </div>
-                <div class="highlight">
-<pre><code class="language-javascript">var distbuilder = new DistributionBuilder();
+        <div class="highlight">
+<pre><code>var distbuilder = new DistributionBuilder();
 distbuilder.render("targetdiv");
 distbuilder.labelize();</code></pre>
-                </div>
-                <p>That’s it! You have created a Distribution Builder in the &lt;div&gt; section called “targetdiv”.</p>
-                <p>It consists in three elements:</p>
-                <ul>
-                    <li>The <strong>grid</strong>, an matrix of cells in which the balls allocated are displayed.</li>
-                    <li>The <strong>labels</strong>, a line matching each bucket to a value.</li>
-                    <li>The <strong>buttons</strong>, which allow the user to increment or decrement a bucket.</li>
-                </ul>
-                <p>Each element can be customized to your liking, both using the Javascript methods wrapped by the
-                   library and the CSS.</p>
-            </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading"><h2>4. Customizing the Distribution Builder</h2></div>
-            <div class="panel-body">
-                <p>The complete creation of a Distribution Builder object is done in three phases:</p>
-                <ul>
-                    <li>A. Initialization</li>
-                    <li>B. Render</li>
-                    <li>C. Labelize.</li>
-                </ul>
-                <h3>A. Initialization</h3>
-                <p>The first step in creating a Distribution Builder is to create a new object using the <code>new
-                DistributionBuilder({})</code> call. It initializes the internal state of the DistributionBuilder
-                   object, with a certain number of parameters that you can specify.</p>
-                When creating the
-                DistributionBuilder object, you can
-                specify a certain number of options:</p>
-                <ul>
-                    <li>
-                        <code>nRows</code>, <em>(default: 10)</em>:
-                                          The number of rows of the distribution builder (i.e. the maximum number of
-                                          balls that can be allocated to a certain value).
-                    </li>
-                    <li>
-                        <code>nBuckets</code>, <em>(default: 10)</em>: The number of buckets (columns) to which balls
-                                             can be allocated.
-                    </li>
-                    <li>
-                        <code>minVal</code>, <em>(default: 0)</em>: The value corresponding to the first bucket (the
-                                           smallest value).
-                    </li>
-                    <li>
-                        <code>maxVal</code>, <em>(default: 10)</em>: The value corresponding to the last bucket (the
-                                           largest value)
-                    </li>
-                    <li>
-                        <code>nBalls</code>, <em>(default: 10)</em>: The total number of balls to allocate.
-                    </li>
-                    <li>
-                        <code>onTouch</code>, <em>(default: <code>function () {}</code>)</em>: A JavaScript function
-                                            that will be called every time the user clicks a button of the distribution
-                                            builder.
-                    </li>
-                    <li><code>onChange</code>, <em>(default: <code>function () {}</code>)</em>: A JavaScript function
-                                             that will be called every time the user successfully changes the
-                                             allocation of balls (i.e. when the add/remove action is performed on
-                                             non-filled/non-empty bucket, and when there are still balls available to
-                                             allocate).
-                    </li>
-                </ul>
-                <div class="bs-example">
-                    <div id="targetdiv1" style="width:100%; margin: 0 auto;">
-                    </div>
-                </div>
-                <div class="highlight">
+        <p>In just three lines of code, you have created a Distribution Builder in the &lt;div&gt; section called
+            “targetdiv”.</p>
+        <p>It consists in three elements:</p>
+        <ul>
+            <li>The <strong>grid</strong>, an matrix of cells in which the balls allocated are displayed.</li>
+            <li>The <strong>labels</strong>, a line matching each bucket to a value.</li>
+            <li>The <strong>buttons</strong>, which allow the user to increment or decrement a bucket.</li>
+        </ul>
+        <p>Each of these elements can be customized to your liking, both using the Javascript methods wrapped by the
+            library and the CSS. Browse the section below to discover how you can customize the appearance and
+            functionalities of the distribution builder, access the results of your participants, and implement more
+            complex logics in your studies.</p>
+
+        <h1>4. Customizing the Distribution Builder</h1>
+        <p>The complete creation of a Distribution Builder object is done in three phases:</p>
+        <ul>
+            <li>A. Initialization</li>
+            <li>B. Render</li>
+            <li>C. Labelize.</li>
+        </ul>
+        <h2>A. Initialization</h2>
+        <p>The first step in creating a Distribution Builder is to initialize the object:</p>
+        <p><code>myDistBuilder = new DistributionBuilder({})</code></p>
+        <p>This function call initializes the internal state of the DistributionBuilder object, with a certain number of
+            parameters that you can specify:</p>
+        <ul>
+            <li>
+                <code>nRows</code>, <em>(default: 10)</em>: The number of rows of the distribution builder (i.e. the
+                maximum number of balls that can be allocated to a certain value).
+            </li>
+            <li>
+                <code>nBuckets</code>, <em>(default: 10)</em>: The number of buckets (columns) to which balls can be
+                allocated.
+            </li>
+            <li>
+                <code>minVal</code>, <em>(default: 0)</em>: The value corresponding to the first bucket (the smallest
+                value).
+            </li>
+            <li>
+                <code>maxVal</code>, <em>(default: 10)</em>: The value corresponding to the last bucket (the largest
+                value)
+            </li>
+            <li>
+                <code>nBalls</code>, <em>(default: 10)</em>: The total number of balls to allocate.
+            </li>
+            <li>
+                <code>onTouch</code>, <em>(default: <code>function () {}</code>)</em>: A JavaScript function that will
+                be called every time the user clicks a button of the distribution builder.
+            </li>
+            <li><code>onChange</code>, <em>(default: <code>function () {}</code>)</em>: A JavaScript function that will
+                be called every time the user successfully changes the allocation of balls (i.e. when the add/remove
+                action is performed on non-filled/non-empty bucket, and when there are still balls available to
+                allocate).
+            </li>
+        </ul>
+        <div class="bs-example">
+            <div id="targetdiv1" style="width:100%; margin: 0 auto;"></div>
+        </div>
+        <div class="highlight">
 <pre><code class="language-javascript">var distbuilder = new DistributionBuilder({
     nRows: 50,
     nBuckets: 25,
@@ -171,42 +186,36 @@ distbuilder.labelize();</code></pre>
     });
 distbuilder.render("targetdiv");
 distbuilder.labelize();</code></pre>
-                </div>
-                <h3>B. Render
-                </h3>
-                <p>After the DistributionBuilder object is initialized, you must call the method render using <code>
-                    DistributionBuilder.render()</code> to display it on the page. This method requires the argument
-                    <code>target</code>, and you can optionally supply the <code>order</code> and the <code>autosize
+        </div>
+        <h2>B. Render </h2>
+        <p>After the DistributionBuilder object is initialized, you must call the method render using <code>DistributionBuilder.render()</code>
+            to display it on the page. This method requires the argument <code>target</code>, and you can optionally
+            supply the <code>order</code> and the <code>autosize
                     </code> arguments to further tweak the appearance of the Distribution Builder.</p>
-                <ul>
-                    <li>
-                        <code>target</code>, <em>required argument</em>: The html <code>id</code> attribute of the
-                                           element in which the distribution builder should be displayed. For best
-                                           results, this element should be a div with a fixed width.
-                    </li>
-                    <li>
-                        <code>order</code>, <em>(default: ‘grid-labels-buttons’)</em>: The order in which the
-                                          elements of the Distribution Builder should be rendered. For instance, if
-                                          you want to labels to appear above the grid, you should specify
-                                          ‘labels-grid-buttons’.
-                    </li>
-                    <li>
-                        <code>autoresize</code>, <em>(default: true)</em>: By default, the render function is taking
-                                               the size of the target, dividing it by the number of buckets, and
-                                               resize the labels, buttons, and grid accordingly. In some rare cases
-                                               (e.g. a very narrow target div, or a very large number of buckets),
-                                               the resize may mess up the labels. In that case, it is recommended that
-                                               you change this argument to <code>false</code>, and specify the
-                                               width of the labels, grid, and buttons using css (see below for css
-                                               specification).
-                    </li>
-                </ul>
-                Using this method to put the labels at the top of the Distribution Builder:
-                <div class="bs-example">
-                    <div id="targetdiv2" style="width:100%; margin: 0 auto;">
-                    </div>
-                </div>
-                <div class="highlight">
+        <ul>
+            <li>
+                <code>target</code>, <em>required argument</em>: The html <code>id</code> attribute of the element in
+                which the distribution builder should be displayed. For best results, this element should be a div with
+                a fixed width.
+            </li>
+            <li>
+                <code>order</code>, <em>(default: ‘grid-labels-buttons’)</em>: The order in which the elements of the
+                Distribution Builder should be rendered. For instance, if you want to labels to appear above the grid,
+                you should specify ‘labels-grid-buttons’.
+            </li>
+            <li>
+                <code>autoresize</code>, <em>(default: true)</em>: By default, the render function is taking the size of
+                the target, dividing it by the number of buckets, and resize the labels, buttons, and grid accordingly.
+                In some rare cases (e.g. a very narrow target div, or a very large number of buckets), the resize may
+                mess up the labels. In that case, it is recommended that you change this argument to <code>false</code>,
+                and specify the width of the labels, grid, and buttons using css (see below for css specification).
+            </li>
+        </ul>
+        Using this method to put the labels at the top of the Distribution Builder:
+        <div class="bs-example">
+            <div id="targetdiv2" style="width:100%; margin: 0 auto;"></div>
+        </div>
+        <div class="highlight">
 <pre><code class="language-javascript">var distbuilder = new DistributionBuilder({
     nRows: 50,
     nBuckets: 25,
@@ -223,38 +232,35 @@ distbuilder.labelize();</code></pre>
 distbuilder.render("targetdiv", "labels-grid-buttons");
 distbuilder.labelize();
 </code></pre>
-                </div>
-                <h3>C. Labelize</h3>
-                <p>The last step is to generate the labels by calling the <code>DistributionBuilder.labelize
+        </div>
+        <h2>C. Labelize</h2>
+        <p>The last step is to generate the labels by calling the <code>DistributionBuilder.labelize
                                                                                  ()</code> method</p>
-                <p>By default, the Distribution Builder automatically creates evenly spaced labels from the distance
-                   between the minimum and maximum value and the number of buckets using the following code:</p>
-                <p><code>step = (maxValue - minValue)/nBuckets;<br>
+        <p>By default, the Distribution Builder automatically creates evenly spaced labels from the distance between the
+            minimum and maximum value and the number of buckets using the following code:</p>
+        <p><code>step = (maxValue - minValue)/nBuckets;<br>
             labels = [minValue + step/2 + step*0, minValue + step/2 + step*1, ..., minValue + step/2 +
             step*(nBuckets-1)]
         </code></p>
-                <p>Calling the function <code>DistributionBuilder.labelize()</code> without arguments will display those
-                   labels.
-                   However, you are free
-                   to customize the labels in the following ways:</p>
-                <ol>
-                    <li>Provide a <code>labels</code> argument, which should be an array of length nBuckets. This
-                        will override the default labels.
-                    </li>
-                    <li>Provide a <code>prefix</code> argument, which should be a string (e.g. ‘$’). This will
-                        automatically prepend all the labels with the string specified.
-                    </li>
-                    <li>Provide a <code>suffix</code> argument, which should be a string (e.g. ‘€’). This will
-                        automatically append the string specified to all the labels.
-                    </li>
-                </ol>
-                <p>The <code>prefix</code> and <code>suffix</code> arguments are always applied, whether or not
-                   you specify custom labels using the <strong>label</strong> argument.</p>
-                <div class="bs-example">
-                    <div id="targetdiv3" style="width:100%; margin: 0 auto;">
-                    </div>
-                </div>
-                <div class="highlight">
+        <p>Calling the function <code>DistributionBuilder.labelize()</code> without arguments will display those labels.
+            However, you are free to customize the labels in the following ways:</p>
+        <ol>
+            <li>Provide a <code>labels</code> argument, which should be an array of length nBuckets. This will override
+                the default labels.
+            </li>
+            <li>Provide a <code>prefix</code> argument, which should be a string (e.g. ‘$’). This will automatically
+                prepend all the labels with the string specified.
+            </li>
+            <li>Provide a <code>suffix</code> argument, which should be a string (e.g. ‘€’). This will automatically
+                append the string specified to all the labels.
+            </li>
+        </ol>
+        <p>The <code>prefix</code> and <code>suffix</code> arguments are always applied, whether or not you specify
+            custom labels using the <strong>label</strong> argument.</p>
+        <div class="bs-example">
+            <div id="targetdiv3" style="width:100%; margin: 0 auto;"></div>
+        </div>
+        <div class="highlight">
 <pre><code class="language-javascript">var distbuilder = new DistributionBuilder({
     nRows: 50,
     nBuckets: 25,
@@ -274,59 +280,44 @@ distbuilder.labelize({
     suffix: '€'
 });
 </code></pre>
+        </div>
+
+        <h1>5. Accessing the user's choices</h1>
+        <p>The internal state of the Distribution Builder object can be conveniently accessed through three methods:</p>
+        <ul>
+            <li>
+                <p><code>DistributionBuilder.getDistribution()</code> returns the current allocation of balls in the
+                    form of an array of length nBuckets. If there are four buckets, and the user has allocated 2 balls
+                    to the first bucket, 1 to the third one, and 0 to the others, the function will return <code>[2, 0, 1, 0]</code>.
+                </p>
+            </li>
+            <li>
+                <p><code>DistributionBuilder.getRemainingBalls()</code> returns the number of balls that have not been
+                    allocated yet.</p>
+            </li>
+            <li>
+                <p><code>DistributionBuilder.isComplete()</code> returns <code>true</code> is the user has allocated all
+                    the balls, and <code>false</code> otherwise.</p>
+            </li>
+        </ul>
+        <p>The two examples below demonstrate how those three methods can be used in your experiments and studies.</p>
+        <h2>A. Number of balls allocated</h2>
+        <p>This can be achieved by creating two <code>&lt;div&gt;</code>s called “BallsLeft” and “BallsAllocated”, and
+            assigning a function updating those <code>&lt;div&gt;</code>s to the <code>onChange</code> argument of the
+            Distribution Builder initialization function.</p>
+
+        <div class="bs-example">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-1" id="BallsLeft"></div>
+                <div class="col-md-4 col-md-offset-2" id="BallsAllocated" style="text-align: right"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="targetdiv4" style="width:100%; margin: 0 auto;"></div>
                 </div>
             </div>
         </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading"><h2>5. Accessing the user's choices</h2></div>
-            <div class="panel-body">
-                <p>The internal state of the Distribution Builder object can be conveniently accessed through
-                   three methods:</p>
-                <ul>
-                    <li>
-                        <p><code>DistributionBuilder.getDistribution()</code> returns the current allocation of
-                                                                              balls in the form of an array
-                                                                              of length nBuckets. If there
-                                                                              are four buckets, and the user
-                                                                              has allocated 2 balls to the
-                                                                              first bucket, 1 to the third
-                                                                              one, and 0 to the others, the
-                                                                              function will return
-                            <code>[2, 0, 1, 0]</code>.
-                        </p>
-                    </li>
-                    <li>
-                        <p><code>DistributionBuilder.getRemainingBalls()</code> returns the number of balls that
-                                                                                have not been allocated yet.</p>
-                    </li>
-                    <li>
-                        <p><code>DistributionBuilder.isComplete()</code> returns <code>true</code> is the
-                                                                         user has allocated all the balls,
-                                                                         and <code>false</code> otherwise.</p>
-                    </li>
-                </ul>
-                <p>The two examples below demonstrate how those three methods can be used in your experiments
-                   and studies.</p>
-                <h3>A. Displaying the number of balls allocated and the number of balls left.</h3>
-                <p>This can be achieved by creating two <code>&lt;div&gt;</code>s called “BallsLeft” and
-                   “BallsAllocated”, and assigning a function updating those <code>&lt;div&gt;</code>s to the
-                    <code>onChange</code> argument of the Distribution Builder initialization function.</p>
-
-                <div class="bs-example">
-                    <div class="row">
-                        <div class="col-md-4 col-md-offset-1" id="BallsLeft"></div>
-                        <div class="col-md-4 col-md-offset-2" id="BallsAllocated"
-                             style="text-align: right"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="targetdiv4" style="width:100%; margin: 0 auto;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="highlight">
+        <div class="highlight">
 
 <pre><code class="language-javascript">var n_balls = 20;
 $j('#BallsLeft').text("You have " + n_balls + " balls left.");
@@ -346,40 +337,38 @@ var distbuilder = new DistributionBuilder({
 });
 distbuilder.render("targetdiv");
 distbuilder.labelize();</code></pre>
+        </div>
+        <h2>B. Validating and accessing the distribution</h2>
+        <p>This is achieved in two steps:</p>
+        <ul>
+            <li>
+                Creating a <code>button</code> called “SubmitDistribution” with <code> disabled=true</code>, and binding
+                the <code>DistributionBuilder.getDistribution()</code> method to the button. When clicked, the button
+                will return the distribution specified by the user.
+            </li>
+            <li>
+                Assigning a function that will enable or disable the button to the <code>onChange</code> argument. This
+                is done by accessing the value returned by the <code>DistributionBuilder.isComplete()</code> method.
+            </li>
+        </ul>
+        <p>Together, those two steps are ensuring that the distribution is fully specified before it can be validated,
+            and that the resulting distribution can be accessed.</p>
+        <div class="bs-example">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4" style="text-align: center">
+                    <button class="btn btn-default" id="SubmitDistribution" disabled=true>
+                        Submit Distribution
+                    </button>
                 </div>
-                <h3>B. Validating and accessing the user's distribution</h3>
-                <p>This is achieved in two steps:</p>
-                <ul>
-                    <li>
-                        Creating a <code>button</code> called “SubmitDistribution” with <code> disabled=true</code>, and
-                        binding the <code>DistributionBuilder.getDistribution()</code> method to the button. When
-                        clicked, the button will return the distribution specified by the user.
-                    </li>
-                    <li>
-                        Assigning a function that will enable or disable the button to the <code>onChange</code>
-                        argument. This is done by accessing the value returned by the <code>DistributionBuilder.isComplete()</code>
-                        method.
-                    </li>
-                </ul>
-                <p>Together, those two steps are ensuring that the distribution is fully specified before it can be
-                   validated, and that the resulting distribution can be accessed.</p>
-                <div class="bs-example">
-                    <div class="row">
-                        <div class="col-md-4 col-md-offset-4" style="text-align: center">
-                            <button class="btn btn-default" id="SubmitDistribution" disabled=true>
-                                Submit Distribution
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="targetdiv5" style="width:100%; margin: 0 auto;">
-                            </div>
-                        </div>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="targetdiv5" style="width:100%; margin: 0 auto;"></div>
                 </div>
+            </div>
+        </div>
 
-                <div class="highlight">
+        <div class="highlight">
 <pre><code class="language-javascript">var distbuilder = new DistributionBuilder({
     minVal: 0,
     maxVal: 100,
@@ -397,15 +386,12 @@ distbuilder.labelize();</code></pre>
 $j("#SubmitDistribution").click(function() {alert(distbuilder.getDistribution())});
 distbuilder.render("targetdiv");
 distbuilder.labelize({});</code></pre>
-                </div>
-            </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading"><h2>6. CSS Specification</h2></div>
-            <div class="panel-body">
-                <p>If you want to customize the appearance of the distribution builder, you can use the
-                   following tree to
-                   understand how the Distribution Builder object is rendered on screen.</p>
+        <h1>6. CSS Specification</h1>
+        <p>If you want to customize the appearance of the distribution builder, the full list of classes defined by the
+            stylesheet can be found in the <code>distributionbuilder.css</code> file.</p>
+        <p> The following CSS tree will help you understand the mapping between the CSS classes and the way the
+            Distribution Builder object is rendered on screen.</p>
         <pre><code class="html">&lt;div id="MyContainer" class="distbuilder"&gt;
     &lt;div class="grid"&gt;
         &lt;div class="distrow row2"&gt;
@@ -414,12 +400,12 @@ distbuilder.labelize({});</code></pre>
             &lt;div id="col2" class="cell"&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="distrow row1"&gt;
-            &lt;div id="col0" class="cell"&gt;&lt;/div&gt;
+            &lt;div id="col0" class="cell filled"&gt;&lt;/div&gt;
             &lt;div id="col1" class="cell"&gt;&lt;/div&gt;
             &lt;div id="col2" class="cell"&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="distrow row0"&gt;
-            &lt;div id="col0" class="cell"&gt;&lt;/div&gt;
+            &lt;div id="col0" class="cell filled"&gt;&lt;/div&gt;
             &lt;div id="col1" class="cell"&gt;&lt;/div&gt;
             &lt;div id="col2" class="cell"&gt;&lt;/div&gt;
         &lt;/div&gt;
@@ -448,10 +434,16 @@ distbuilder.labelize({});</code></pre>
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-            </div>
-        </div>
-    </div>
+    </section>
+    <footer>
+        <p>
+            <small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a>
+            </small>
+        </p>
+    </footer>
 </div>
+<!--[if !IE]>
+<script>fixScale(document);</script><![endif]-->
 
 
 <script type="text/javascript" src="demo/js/main.js" charset="utf-8"></script>

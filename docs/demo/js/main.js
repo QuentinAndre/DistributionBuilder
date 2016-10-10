@@ -40,133 +40,17 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(1);
+	module.exports = __webpack_require__(56);
 
 
 /***/ },
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	var _distributionbuilder = __webpack_require__(2);
-
-	var _distributionbuilder2 = _interopRequireDefault(_distributionbuilder);
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	console.log("Test?");
-	var $j = _jquery2.default.noConflict();
-
-	$j(document).ready(function () {
-	    var distbuilder0 = new _distributionbuilder2.default({});
-	    distbuilder0.render("targetdiv0");
-	    distbuilder0.labelize({});
-
-	    var distbuilder1 = new _distributionbuilder2.default({
-	        minVal: 0,
-	        maxVal: 100,
-	        nRows: 20,
-	        nBuckets: 20,
-	        nBalls: 50,
-	        onTouch: function onTouch() {
-	            console.log("Distbuilder was touched!");
-	        },
-	        onChange: function onChange() {
-	            console.log("Distbuilder was updated!");
-	        }
-	    });
-
-	    var distbuilder2 = new _distributionbuilder2.default({
-	        minVal: 0,
-	        maxVal: 100,
-	        nRows: 20,
-	        nBuckets: 20,
-	        nBalls: 50,
-	        onTouch: function onTouch() {
-	            console.log("Distbuilder was touched!");
-	        },
-	        onChange: function onChange() {
-	            console.log("Distbuilder was updated!");
-	        }
-	    });
-
-	    var distbuilder3 = new _distributionbuilder2.default({
-	        minVal: 0,
-	        maxVal: 100,
-	        nRows: 20,
-	        nBuckets: 20,
-	        nBalls: 50,
-	        onTouch: function onTouch() {
-	            console.log("Distbuilder was touched!");
-	        },
-	        onChange: function onChange() {
-	            console.log("Distbuilder was updated!");
-	        }
-	    });
-
-	    distbuilder1.render("targetdiv1");
-	    distbuilder1.labelize({});
-	    distbuilder2.render("targetdiv2", "labels-grid-buttons");
-	    distbuilder2.labelize({});
-
-	    distbuilder3.render("targetdiv3");
-	    distbuilder3.labelize({
-	        prefix: '~',
-	        suffix: '€'
-	    });
-
-	    var n_balls = 20;
-	    $j('#BallsLeft').text("You have " + n_balls + " balls left.");
-	    $j('#BallsAllocated').text("You have allocated " + 0 + " balls.");
-	    var distbuilder4 = new _distributionbuilder2.default({
-	        minVal: 0,
-	        maxVal: 100,
-	        nRows: 20,
-	        nBuckets: 20,
-	        nBalls: n_balls,
-	        onChange: function onChange() {
-	            var remainingballs = this.getRemainingBalls();
-	            var ballsallocated = n_balls - this.getRemainingBalls();
-	            $j('#BallsLeft').text("You have " + remainingballs + " balls left.");
-	            $j('#BallsAllocated').text("You have allocated " + ballsallocated + " balls.");
-	        }
-	    });
-
-	    distbuilder4.render("targetdiv4");
-	    distbuilder4.labelize({});
-
-	    var distbuilder5 = new _distributionbuilder2.default({
-	        minVal: 0,
-	        maxVal: 100,
-	        nRows: 20,
-	        nBuckets: 20,
-	        nBalls: 20,
-	        onChange: function onChange() {
-	            if (this.isComplete()) {
-	                $j("#SubmitDistribution").attr("disabled", false);
-	            } else {
-	                $j("#SubmitDistribution").attr("disabled", true);
-	            }
-	        }
-	    });
-	    distbuilder5.render("targetdiv5");
-	    distbuilder5.labelize({});
-	    $j("#SubmitDistribution").click(function () {
-	        alert(distbuilder5.getDistribution());
-	    });
-	});
-
-/***/ },
-/* 2 */
+/***/ 39:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -175,22 +59,25 @@
 	    value: true
 	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Created by Quentin on 07/10/2016.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-
-	var _jquery = __webpack_require__(3);
+	var _jquery = __webpack_require__(40);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _mousehold = __webpack_require__(4);
+	var _mousehold = __webpack_require__(41);
 
 	var _mousehold2 = _interopRequireDefault(_mousehold);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/**
+	 * Created by Quentin on 07/10/2016.
+	 */
+	__webpack_require__(42);
+	__webpack_require__(46);
 
 	var $j = _jquery2.default.noConflict();
 
@@ -392,7 +279,8 @@
 	exports.default = DistributionBuilder;
 
 /***/ },
-/* 3 */
+
+/***/ 40:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10618,7 +10506,8 @@
 
 
 /***/ },
-/* 4 */
+
+/***/ 41:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -10684,5 +10573,286 @@
 
 	exports.default = MouseHold;
 
+/***/ },
+
+/***/ 42:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 46:
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(47);
+	__webpack_require__(54);
+
+/***/ },
+
+/***/ 47:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 54:
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(55);
+
+/***/ },
+
+/***/ 55:
+/***/ function(module, exports) {
+
+	/* ========================================================================
+	 * Bootstrap: button.js v3.3.7
+	 * http://getbootstrap.com/javascript/#buttons
+	 * ========================================================================
+	 * Copyright 2011-2016 Twitter, Inc.
+	 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+	 * ======================================================================== */
+
+
+	+function ($) {
+	  'use strict';
+
+	  // BUTTON PUBLIC CLASS DEFINITION
+	  // ==============================
+
+	  var Button = function (element, options) {
+	    this.$element  = $(element)
+	    this.options   = $.extend({}, Button.DEFAULTS, options)
+	    this.isLoading = false
+	  }
+
+	  Button.VERSION  = '3.3.7'
+
+	  Button.DEFAULTS = {
+	    loadingText: 'loading...'
+	  }
+
+	  Button.prototype.setState = function (state) {
+	    var d    = 'disabled'
+	    var $el  = this.$element
+	    var val  = $el.is('input') ? 'val' : 'html'
+	    var data = $el.data()
+
+	    state += 'Text'
+
+	    if (data.resetText == null) $el.data('resetText', $el[val]())
+
+	    // push to event loop to allow forms to submit
+	    setTimeout($.proxy(function () {
+	      $el[val](data[state] == null ? this.options[state] : data[state])
+
+	      if (state == 'loadingText') {
+	        this.isLoading = true
+	        $el.addClass(d).attr(d, d).prop(d, true)
+	      } else if (this.isLoading) {
+	        this.isLoading = false
+	        $el.removeClass(d).removeAttr(d).prop(d, false)
+	      }
+	    }, this), 0)
+	  }
+
+	  Button.prototype.toggle = function () {
+	    var changed = true
+	    var $parent = this.$element.closest('[data-toggle="buttons"]')
+
+	    if ($parent.length) {
+	      var $input = this.$element.find('input')
+	      if ($input.prop('type') == 'radio') {
+	        if ($input.prop('checked')) changed = false
+	        $parent.find('.active').removeClass('active')
+	        this.$element.addClass('active')
+	      } else if ($input.prop('type') == 'checkbox') {
+	        if (($input.prop('checked')) !== this.$element.hasClass('active')) changed = false
+	        this.$element.toggleClass('active')
+	      }
+	      $input.prop('checked', this.$element.hasClass('active'))
+	      if (changed) $input.trigger('change')
+	    } else {
+	      this.$element.attr('aria-pressed', !this.$element.hasClass('active'))
+	      this.$element.toggleClass('active')
+	    }
+	  }
+
+
+	  // BUTTON PLUGIN DEFINITION
+	  // ========================
+
+	  function Plugin(option) {
+	    return this.each(function () {
+	      var $this   = $(this)
+	      var data    = $this.data('bs.button')
+	      var options = typeof option == 'object' && option
+
+	      if (!data) $this.data('bs.button', (data = new Button(this, options)))
+
+	      if (option == 'toggle') data.toggle()
+	      else if (option) data.setState(option)
+	    })
+	  }
+
+	  var old = $.fn.button
+
+	  $.fn.button             = Plugin
+	  $.fn.button.Constructor = Button
+
+
+	  // BUTTON NO CONFLICT
+	  // ==================
+
+	  $.fn.button.noConflict = function () {
+	    $.fn.button = old
+	    return this
+	  }
+
+
+	  // BUTTON DATA-API
+	  // ===============
+
+	  $(document)
+	    .on('click.bs.button.data-api', '[data-toggle^="button"]', function (e) {
+	      var $btn = $(e.target).closest('.btn')
+	      Plugin.call($btn, 'toggle')
+	      if (!($(e.target).is('input[type="radio"], input[type="checkbox"]'))) {
+	        // Prevent double click on radios, and the double selections (so cancellation) on checkboxes
+	        e.preventDefault()
+	        // The target component still receive the focus
+	        if ($btn.is('input,button')) $btn.trigger('focus')
+	        else $btn.find('input:visible,button:visible').first().trigger('focus')
+	      }
+	    })
+	    .on('focus.bs.button.data-api blur.bs.button.data-api', '[data-toggle^="button"]', function (e) {
+	      $(e.target).closest('.btn').toggleClass('focus', /^focus(in)?$/.test(e.type))
+	    })
+
+	}(jQuery);
+
+
+/***/ },
+
+/***/ 56:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _distributionbuilder = __webpack_require__(39);
+
+	var _distributionbuilder2 = _interopRequireDefault(_distributionbuilder);
+
+	var _jquery = __webpack_require__(40);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	console.log("Test?");
+	var $j = _jquery2.default.noConflict();
+
+	$j(document).ready(function () {
+	    var distbuilder0 = new _distributionbuilder2.default({});
+	    distbuilder0.render("targetdiv0");
+	    distbuilder0.labelize({});
+
+	    var distbuilder1 = new _distributionbuilder2.default({
+	        minVal: 0,
+	        maxVal: 100,
+	        nRows: 20,
+	        nBuckets: 20,
+	        nBalls: 50,
+	        onTouch: function onTouch() {
+	            console.log("Distbuilder was touched!");
+	        },
+	        onChange: function onChange() {
+	            console.log("Distbuilder was updated!");
+	        }
+	    });
+
+	    var distbuilder2 = new _distributionbuilder2.default({
+	        minVal: 0,
+	        maxVal: 100,
+	        nRows: 20,
+	        nBuckets: 20,
+	        nBalls: 50,
+	        onTouch: function onTouch() {
+	            console.log("Distbuilder was touched!");
+	        },
+	        onChange: function onChange() {
+	            console.log("Distbuilder was updated!");
+	        }
+	    });
+
+	    var distbuilder3 = new _distributionbuilder2.default({
+	        minVal: 0,
+	        maxVal: 100,
+	        nRows: 20,
+	        nBuckets: 20,
+	        nBalls: 50,
+	        onTouch: function onTouch() {
+	            console.log("Distbuilder was touched!");
+	        },
+	        onChange: function onChange() {
+	            console.log("Distbuilder was updated!");
+	        }
+	    });
+
+	    distbuilder1.render("targetdiv1");
+	    distbuilder1.labelize({});
+	    distbuilder2.render("targetdiv2", "labels-grid-buttons");
+	    distbuilder2.labelize({});
+
+	    distbuilder3.render("targetdiv3");
+	    distbuilder3.labelize({
+	        prefix: '~',
+	        suffix: '€'
+	    });
+
+	    var n_balls = 20;
+	    $j('#BallsLeft').text("You have " + n_balls + " balls left.");
+	    $j('#BallsAllocated').text("You have allocated " + 0 + " balls.");
+	    var distbuilder4 = new _distributionbuilder2.default({
+	        minVal: 0,
+	        maxVal: 100,
+	        nRows: 20,
+	        nBuckets: 20,
+	        nBalls: n_balls,
+	        onChange: function onChange() {
+	            var remainingballs = this.getRemainingBalls();
+	            var ballsallocated = n_balls - this.getRemainingBalls();
+	            $j('#BallsLeft').text("You have " + remainingballs + " balls left.");
+	            $j('#BallsAllocated').text("You have allocated " + ballsallocated + " balls.");
+	        }
+	    });
+
+	    distbuilder4.render("targetdiv4");
+	    distbuilder4.labelize({});
+
+	    var distbuilder5 = new _distributionbuilder2.default({
+	        minVal: 0,
+	        maxVal: 100,
+	        nRows: 20,
+	        nBuckets: 20,
+	        nBalls: 20,
+	        onChange: function onChange() {
+	            if (this.isComplete()) {
+	                $j("#SubmitDistribution").attr("disabled", false);
+	            } else {
+	                $j("#SubmitDistribution").attr("disabled", true);
+	            }
+	        }
+	    });
+	    distbuilder5.render("targetdiv5");
+	    distbuilder5.labelize({});
+	    $j("#SubmitDistribution").click(function () {
+	        alert(distbuilder5.getDistribution());
+	    });
+	});
+
 /***/ }
-/******/ ]);
+
+/******/ });
