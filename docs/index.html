@@ -57,8 +57,8 @@
             distribution builders easy and accessible to researchers with little to no programming background.</p>
         <p>This library was developed by <strong>Quentin Andre</strong>, a PhD candidate in Marketing at INSEAD Business
             School, France. If you are using this library and finding it useful, please let me know at <a
-                    href="mailto:quentin@andre@insead.edu">quentin.andre@insead.edu</a>. I would also be happy to
-            hear about your ideas on how to improve the library!</p>
+                    href="mailto:quentin@andre@insead.edu">quentin.andre@insead.edu</a>. I would also be happy to hear
+            about your ideas on how to improve the library!</p>
         <p>DistributionBuilder is written in the ES2015 specification of Javascript, and is transpiled in legacy code
             for cross-browsers compatibility. It is developed upon the <a href="https://jquery.com/" target="_blank">jQuery</a>
             library, and uses some elements of <a href="http://getbootstrap.com/getting-started/" target="_blank">Bootstrap</a>
@@ -186,10 +186,11 @@ distbuilder.render("targetdiv");
 distbuilder.labelize();</code></pre>
         </div>
         <h2>B. Render </h2>
-        <p>After the DistributionBuilder object is initialized, you must call the method render using <code>DistributionBuilder.render()</code>
-            to display it on the page. This method requires the argument <code>target</code>, and you can optionally
-            supply the <code>order</code> and the <code>autosize
-                    </code> arguments to further tweak the appearance of the Distribution Builder.</p>
+        <p>After the DistributionBuilder object is initialized, you must call another method to indicate where you want
+            to see it displayed on the page:</p>
+        <p><code>DistributionBuilder.render()</code></p>
+        <p>This method requires the argument <code>target</code>, and you can optionally supply the <code>order</code>
+            and the <code>resize</code> arguments to further tweak the appearance of the Distribution Builder.</p>
         <ul>
             <li>
                 <code>target</code>, <em>required argument</em>: The html <code>id</code> attribute of the element in
@@ -202,11 +203,11 @@ distbuilder.labelize();</code></pre>
                 you should specify ‘labels-grid-buttons’.
             </li>
             <li>
-                <code>autoresize</code>, <em>(default: true)</em>: By default, the render function is taking the size of
-                the target, dividing it by the number of buckets, and resize the labels, buttons, and grid accordingly.
-                In some rare cases (e.g. a very narrow target div, or a very large number of buckets), the resize may
-                mess up the labels. In that case, it is recommended that you change this argument to <code>false</code>,
-                and specify the width of the labels, grid, and buttons using css (see below for css specification).
+                <code>resize</code>, <em>(default: true)</em>: By default, the render function is taking the size of the
+                target, dividing it by the number of buckets, and resize the labels, buttons, and grid accordingly. In
+                some rare cases (e.g. a very narrow target div, or a very large number of buckets), the resize may mess
+                up the labels. In that case, it is recommended that you change this argument to <code>false</code>, and
+                specify the width of the labels, grid, and buttons using css (see below for css specification).
             </li>
         </ul>
         Using this method to put the labels at the top of the Distribution Builder:
@@ -232,27 +233,25 @@ distbuilder.labelize();
 </code></pre>
         </div>
         <h2>C. Labelize</h2>
-        <p>The last step is to generate the labels by calling the <code>DistributionBuilder.labelize
-                                                                                 ()</code> method</p>
-        <p>By default, the Distribution Builder automatically creates evenly spaced labels from the distance between the
-            minimum and maximum value and the number of buckets using the following code:</p>
+        <p>Finally, you generally want to add some labels to the buckets of your distribution builder:</p>
+        <p><code>DistributionBuilder.labelize()</code></p>
+        <p>By default, the Distribution Builder automatically creates evenly spaced labels, using the distance between
+            the minimum and maximum value and the number of buckets using the following code:</p>
         <p><pre><code>step = (maxValue - minValue)/nBuckets;
 labels = [minValue + step/2 + step*0, minValue + step/2 + step*1, ..., minValue + step/2 +step*(nBuckets-1)]</code></pre>
         </p><p>Calling the function <code>DistributionBuilder.labelize()</code> without arguments will display those
-        labels. However, you are free to customize the labels in the following ways:</p>
+        labels. However, you are free to customize the labels using the following arguments:</p>
         <ol>
-            <li>Provide a <code>labels</code> argument, which should be an array of length nBuckets. This will override
-                the default labels.
+            <li><code>labels</code>, an array of length <code>nBuckets</code>code>. Supplying this argument will
+                override the default labels.
             </li>
-            <li>Provide a <code>prefix</code> argument, which should be a string (e.g. ‘$’). This will automatically
-                prepend all the labels with the string specified.
+            <li><code>prefix</code>, a string (e.g. ‘$’) which you would like to see prepended to all the labels.
             </li>
-            <li>Provide a <code>suffix</code> argument, which should be a string (e.g. ‘€’). This will automatically
-                append the string specified to all the labels.
+            <li><code>suffix</code>, a string (e.g. ‘€’) which you would like to see appended to all the labels.
             </li>
         </ol>
         <p>The <code>prefix</code> and <code>suffix</code> arguments are always applied, whether or not you specify
-            custom labels using the <strong>label</strong> argument.</p>
+            custom labels using the <code>label</code> argument.</p>
         <div class="bs-example">
             <div id="targetdiv3" style="width:100%; margin: 0 auto;"></div>
         </div>
