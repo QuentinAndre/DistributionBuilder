@@ -50,19 +50,17 @@
     <section>
         <h1>1. Motivation</h1>
         <p>Goldstein and Rothschild’s paper <em>'Lay understanding of probability distributions'</em> (2014) has
-            highlighted the benefits of using graphical tools called <strong>distribution builders</strong> to
-            investigate subjective probabilities, perceptions of events frequency, and confidence. However, the
-            implementation of such distribution builders in online studies is not straightforward.</p>
+            highlighted the benefits of using graphical tools called <strong>distribution builders</strong> in
+            investigation of subjective probabilities, perceptions of frequency, and confidence judgements. However, the
+            implementation of such distribution builders in online studies is not straightforward, as most survey
+            platforms do not include such builders.</p>
         <p>The DistributionBuilder library was created to address this issue, and make the implementation of
-            distribution builders easy and accessible to researchers with little to no programming background.</p>
+            distribution builders easy and accessible to researchers. The library is user-friendly, and requires very
+            little programming knowledge to be used.</p>
         <p>This library was developed by <strong>Quentin Andre</strong>, a PhD candidate in Marketing at INSEAD Business
             School, France. If you are using this library and finding it useful, please let me know at <a
                     href="mailto:quentin@andre@insead.edu">quentin.andre@insead.edu</a>. I would also be happy to hear
             about your ideas on how to improve the library!</p>
-        <p>DistributionBuilder is written in the ES2015 specification of Javascript, and is transpiled in legacy code
-            for cross-browsers compatibility. It is developed upon the <a href="https://jquery.com/" target="_blank">jQuery</a>
-            library, and uses some elements of <a href="http://getbootstrap.com/getting-started/" target="_blank">Bootstrap</a>
-            for styling.</p>
 
         <h1>2. Installation</h1>
         <p>To add the library to your projects and start using DistributionBuilder, just follow the instructions
@@ -239,7 +237,7 @@ distbuilder.labelize();
             the minimum and maximum value and the number of buckets using the following code:</p>
         <p><pre><code>step = (maxValue - minValue)/nBuckets;
 labels = [minValue + step/2 + step*0, minValue + step/2 + step*1, ..., minValue + step/2 +step*(nBuckets-1)]</code></pre>
-        </p><p>Calling the function <code>DistributionBuilder.labelize()</code> without arguments will display those
+        </p><p>Calling the method <code>DistributionBuilder.labelize()</code> without arguments will display those
         labels. However, you are free to customize the labels using the following arguments:</p>
         <ol>
             <li><code>labels</code>, an array of length <code>nBuckets</code>code>. Supplying this argument will
@@ -271,7 +269,7 @@ labels = [minValue + step/2 + step*0, minValue + step/2 + step*1, ..., minValue 
     });
 distbuilder.render();
 distbuilder.labelize({
-    preffix: '~',
+    prefix: '~',
     suffix: '€'
 });
 </code></pre>
@@ -417,6 +415,11 @@ distbuilder.labelize({});</code></pre>
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
+        <h1>7. About DistributionBuilder</h1>
+        <p>DistributionBuilder is published under the MIT license. The code is written in the ES2015 specification of
+            Javascript, and is transpiled in legacy code for cross-browsers compatibility. It is developed upon the <a
+                    href="https://jquery.com/" target="_blank">jQuery</a> library, and uses some elements of <a
+                    href="http://getbootstrap.com/getting-started/" target="_blank">Bootstrap</a> for styling.</p>
     </section>
     <footer>
         <p>
