@@ -1,13 +1,13 @@
 /**
  * Created by Quentin on 07/10/2016.
  */
+import jQuery from 'jquery';
 require('./distributionbuilder.css');
 require("bootstrap-webpack!./bootstrap.config.js");
-import jQuery from 'jquery';
 var $j = jQuery.noConflict();
 import MouseHold from './../dependencies/mousehold'
 MouseHold($j);
-
+require('expose?$j!expose?jQuery!jquery');
 class DistributionBuilder {
     constructor(o) {
         var obj = o ? o : {};

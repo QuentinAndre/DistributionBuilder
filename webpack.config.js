@@ -4,13 +4,18 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
     entry: {
         'docs/demo/js/main': ["./sources/demo.js"],
-        'distributionbuilder': ["./sources/packager.js"],
-        'distributionbuilder.min': ["./sources/packager.js"]
+        'distributionbuilder': ["./sources/distributionbuilder.js"],
+        'distributionbuilder.min': ["./sources/distributionbuilder.js"]
     },
     output: {
         path: __dirname,
         filename: "[name].js"
     },
+    externals: [
+        {
+            "window": "window"
+        }
+    ],
     module: {
         loaders: [
             {
@@ -22,11 +27,21 @@ module.exports = {
                 }
             }
             ,
-            {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff&name=docs/fonts/[name].[ext]'},
-            {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream&name=docs/fonts/[name].[ext]'},
+            {
+                test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url?limit=10000&mimetype=application/font-woff&name=docs/fonts/[name].[ext]'
+            },
+            {
+                test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url?limit=10000&mimetype=application/octet-stream&name=docs/fonts/[name].[ext]'
+            },
             {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?name=docs/fonts/[name].[ext]'},
-            {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml&name=docs/fonts/[name].[ext]'},
-            {test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")}
+            {
+                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url?limit=10000&mimetype=image/svg+xml&name=docs/fonts/[name].[ext]'
+            },
+            {test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
+            {test: require.resolve("jquery"), loader: "imports?jQuery=jquery"}
         ]
     },
     plugins: [
@@ -34,7 +49,13 @@ module.exports = {
             include: /\.min\.js$/,
             minimize: true
         }),
-        new ExtractTextPlugin( "distributionbuilder.css" )
+        new ExtractTextPlugin("distributionbuilder.css"),
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            'window.jQuery': 'jquery',
+            'window.$j': 'jquery'
+        })
     ]
 }
 ;

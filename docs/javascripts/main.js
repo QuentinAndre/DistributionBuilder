@@ -1,35 +1,35 @@
 var sectionHeight = function() {
-  var total    = $(window).height(),
-      $section = $('section').css('height','auto');
+  var total    = $j(window).height(),
+      $jsection = $j('section').css('height','auto');
 
-  if ($section.outerHeight(true) < total) {
-    var margin = $section.outerHeight(true) - $section.height();
-    $section.height(total - margin - 20);
+  if ($jsection.outerHeight(true) < total) {
+    var margin = $jsection.outerHeight(true) - $jsection.height();
+    $jsection.height(total - margin - 20);
   } else {
-    $section.css('height','auto');
+    $jsection.css('height','auto');
   }
 }
 
-$(window).resize(sectionHeight);
+$j(window).resize(sectionHeight);
 
-$(document).ready(function(){
-  $("section h1, section h2").each(function(){
-    $("nav ul").append("<li class='tag-" + this.nodeName.toLowerCase() + "'><a href='#" + $(this).text().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g,'') + "'>" + $(this).text() + "</a></li>");
-    $(this).attr("id",$(this).text().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g,''));
-    $("nav ul li:first-child a").parent().addClass("active");
+$j(document).ready(function(){
+  $j("section h1, section h2").each(function(){
+    $j("nav ul").append("<li class='tag-" + this.nodeName.toLowerCase() + "'><a href='#" + $j(this).text().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g,'') + "'>" + $j(this).text() + "</a></li>");
+    $j(this).attr("id",$j(this).text().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g,''));
+    $j("nav ul li:first-child a").parent().addClass("active");
   });
-  
-  $("nav ul li").on("click", "a", function(event) {
-    var position = $($(this).attr("href")).offset().top - 190;
-    $("html, body").animate({scrollTop: position}, 400);
-    $("nav ul li a").parent().removeClass("active");
-    $(this).parent().addClass("active");
-    event.preventDefault();    
+
+  $j("nav ul li").on("click", "a", function(event) {
+    var position = $j($j(this).attr("href")).offset().top - 190;
+    $j("html, body").animate({scrollTop: position}, 400);
+    $j("nav ul li a").parent().removeClass("active");
+    $j(this).parent().addClass("active");
+    event.preventDefault();
   });
-  
+
   sectionHeight();
-  
-  $('img').load(sectionHeight);
+
+  $j('img').on('load', sectionHeight);
 });
 
 fixScale = function(doc) {

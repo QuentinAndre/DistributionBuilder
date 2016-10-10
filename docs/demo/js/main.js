@@ -45,12 +45,12 @@
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(56);
+	module.exports = __webpack_require__(57);
 
 
 /***/ },
 
-/***/ 39:
+/***/ 38:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59,13 +59,16 @@
 	    value: true
 	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Created by Quentin on 07/10/2016.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
 
-	var _jquery = __webpack_require__(40);
+
+	var _jquery = __webpack_require__(39);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _mousehold = __webpack_require__(41);
+	var _mousehold = __webpack_require__(40);
 
 	var _mousehold2 = _interopRequireDefault(_mousehold);
 
@@ -73,15 +76,12 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	/**
-	 * Created by Quentin on 07/10/2016.
-	 */
-	__webpack_require__(42);
-	__webpack_require__(46);
-
+	__webpack_require__(41);
+	__webpack_require__(45);
 	var $j = _jquery2.default.noConflict();
 
 	(0, _mousehold2.default)($j);
+	__webpack_require__(55);
 
 	var DistributionBuilder = function () {
 	    function DistributionBuilder(o) {
@@ -280,10 +280,13 @@
 
 /***/ },
 
-/***/ 40:
+/***/ 39:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*** IMPORTS FROM imports-loader ***/
+	var jQuery = __webpack_require__(39);
+
+	/*!
 	 * jQuery JavaScript Library v3.1.1
 	 * https://jquery.com/
 	 *
@@ -10505,9 +10508,10 @@
 	} );
 
 
+
 /***/ },
 
-/***/ 41:
+/***/ 40:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -10575,39 +10579,39 @@
 
 /***/ },
 
-/***/ 42:
+/***/ 41:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 45:
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(46);
+	__webpack_require__(53);
 
 /***/ },
 
 /***/ 46:
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(47);
-	__webpack_require__(54);
-
-/***/ },
-
-/***/ 47:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 53:
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(54);
 
 /***/ },
 
 /***/ 54:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(55);
-
-/***/ },
-
-/***/ 55:
-/***/ function(module, exports) {
-
-	/* ========================================================================
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
 	 * Bootstrap: button.js v3.3.7
 	 * http://getbootstrap.com/javascript/#buttons
 	 * ========================================================================
@@ -10733,25 +10737,41 @@
 
 	}(jQuery);
 
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(39)))
+
+/***/ },
+
+/***/ 55:
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["$j"] = __webpack_require__(56);
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
 
 /***/ 56:
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["jQuery"] = __webpack_require__(39);
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+
+/***/ 57:
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
-	var _distributionbuilder = __webpack_require__(39);
+	var _distributionbuilder = __webpack_require__(38);
 
 	var _distributionbuilder2 = _interopRequireDefault(_distributionbuilder);
 
-	var _jquery = __webpack_require__(40);
+	var _jquery = __webpack_require__(39);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	console.log("Test?");
 	var $j = _jquery2.default.noConflict();
 
 	$j(document).ready(function () {

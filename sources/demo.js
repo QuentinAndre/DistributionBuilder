@@ -1,9 +1,8 @@
 import DistributionBuilder from './distributionbuilder'
 import jQuery from 'jquery';
-console.log("Test?");
 var $j = jQuery.noConflict();
 
-$j(document).ready(() => {
+$j(document).ready(function () {
         var distbuilder0 = new DistributionBuilder({});
         distbuilder0.render("targetdiv0");
         distbuilder0.labelize({});
@@ -100,7 +99,9 @@ $j(document).ready(() => {
         });
         distbuilder5.render("targetdiv5");
         distbuilder5.labelize({});
-        $j("#SubmitDistribution").click(function() {alert(distbuilder5.getDistribution())});
+        $j("#SubmitDistribution").click(function () {
+            alert(distbuilder5.getDistribution())
+        });
 
     }
 );

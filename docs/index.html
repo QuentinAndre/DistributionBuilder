@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="stylesheets/github-dark.css">
     <link rel="stylesheet" href="stylesheets/distributionbuilder.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css">
+    <script type="text/javascript" src="demo/js/main.js" charset="utf-8"></script>
     <script src="javascripts/main.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -27,7 +27,7 @@
     <div class="banner-inner">
         <span id="logo"></span>
 
-        <a href="https://github.com/QuentinAndre/DistributionBuilder" class="button fork"><strong>View On
+        <a href="https://github.com/QuentinAndre/DistributionBuilder"  target="_blank" class="button fork"><strong>View On
             GitHub</strong></a>
         <span class="downloads"><ul>
             <span>Downloads:</span>
@@ -87,7 +87,8 @@
         <ol>
             <li>Navigate to the "Look and Feel" section of your survey, and click on the "Advanced" tab</li>
             <li>
-                Edit the "Header" section, and add the following lines to load the library script and the library styles:<br><pre><code class="html">&lt;link rel="stylesheet" href="https://raw.githubusercontent.com/QuentinAndre/DistributionBuilder/master/distributionbuilder.css"&gt;
+                Edit the "Header" section, and add the following lines to load the library script and the library
+                styles:<br><pre><code class="html">&lt;link rel="stylesheet" href="https://raw.githubusercontent.com/QuentinAndre/DistributionBuilder/master/distributionbuilder.css"&gt;
 &lt;script src="https://raw.githubusercontent.com/QuentinAndre/DistributionBuilder/master/distributionbuilder.min.js"&gt;&lt;/script&gt;</code></pre>
             </li>
             <li>
@@ -235,12 +236,10 @@ distbuilder.labelize();
                                                                                  ()</code> method</p>
         <p>By default, the Distribution Builder automatically creates evenly spaced labels from the distance between the
             minimum and maximum value and the number of buckets using the following code:</p>
-        <p><code>step = (maxValue - minValue)/nBuckets;<br>
-            labels = [minValue + step/2 + step*0, minValue + step/2 + step*1, ..., minValue + step/2 +
-            step*(nBuckets-1)]
-        </code></p>
-        <p>Calling the function <code>DistributionBuilder.labelize()</code> without arguments will display those labels.
-            However, you are free to customize the labels in the following ways:</p>
+        <p><pre><code>step = (maxValue - minValue)/nBuckets;
+labels = [minValue + step/2 + step*0, minValue + step/2 + step*1, ..., minValue + step/2 +step*(nBuckets-1)]</code></pre>
+        </p><p>Calling the function <code>DistributionBuilder.labelize()</code> without arguments will display those
+        labels. However, you are free to customize the labels in the following ways:</p>
         <ol>
             <li>Provide a <code>labels</code> argument, which should be an array of length nBuckets. This will override
                 the default labels.
@@ -304,15 +303,9 @@ distbuilder.labelize({
             Distribution Builder initialization function.</p>
 
         <div class="bs-example">
-            <div class="row">
-                <div class="col-md-4 col-md-offset-1" id="BallsLeft"></div>
-                <div class="col-md-4 col-md-offset-2" id="BallsAllocated" style="text-align: right"></div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="targetdiv4" style="width:100%; margin: 0 auto;"></div>
-                </div>
-            </div>
+            <div id="BallsLeft"></div>
+            <div id="BallsAllocated" style="text-align: right"></div>
+            <div id="targetdiv4" style="width:100%; margin: 0 auto;"></div>
         </div>
         <div class="highlight">
 
@@ -351,18 +344,12 @@ distbuilder.labelize();</code></pre>
         <p>Together, those two steps are ensuring that the distribution is fully specified before it can be validated,
             and that the resulting distribution can be accessed.</p>
         <div class="bs-example">
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4" style="text-align: center">
-                    <button class="btn btn-default" id="SubmitDistribution" disabled=true>
-                        Submit Distribution
-                    </button>
-                </div>
+            <div style="text-align: center;margin-bottom: 3px;">
+                <button class="btn btn-default" id="SubmitDistribution" disabled=true>
+                    Submit Distribution
+                </button>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="targetdiv5" style="width:100%; margin: 0 auto;"></div>
-                </div>
-            </div>
+            <div id="targetdiv5" style="width:100%; margin: 0 auto;"></div>
         </div>
 
         <div class="highlight">
@@ -441,9 +428,6 @@ distbuilder.labelize({});</code></pre>
 </div>
 <!--[if !IE]>
 <script>fixScale(document);</script><![endif]-->
-
-
-<script type="text/javascript" src="demo/js/main.js" charset="utf-8"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>
