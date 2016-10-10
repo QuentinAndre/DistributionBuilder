@@ -97,7 +97,7 @@
             </li>
         </ol>
 
-        <h1>3. Basic usage</h1>
+        <h1>3. Basic Setup</h1>
 
         <p>The library is extremely easy to use: it allows you to add fully functional distribution builders in a few
             lines of code.</p>
@@ -169,11 +169,11 @@ distbuilder.labelize();</code></pre>
         </div>
         <div class="highlight">
 <pre><code class="language-javascript">var distbuilder = new DistributionBuilder({
-    nRows: 50,
-    nBuckets: 25,
+    nRows: 20,
+    nBuckets: 20,
     minVal: 0,
     maxVal: 100,
-    nBalls: 50,
+    nBalls: 20,
     onTouch: function () {
         console.log("Distbuilder was touched!")
     },
@@ -215,11 +215,11 @@ distbuilder.labelize();</code></pre>
         </div>
         <div class="highlight">
 <pre><code class="language-javascript">var distbuilder = new DistributionBuilder({
-    nRows: 50,
-    nBuckets: 25,
+    nRows: 10,
+    nBuckets: 20,
     minVal: 0,
     maxVal: 100,
-    nBalls: 50,
+    nBalls: 10,
     onTouch: function () {
         console.log("Distbuilder was touched!")
     },
@@ -256,11 +256,11 @@ labels = [minValue + step/2 + step*0, minValue + step/2 + step*1, ..., minValue 
         </div>
         <div class="highlight">
 <pre><code class="language-javascript">var distbuilder = new DistributionBuilder({
-    nRows: 50,
-    nBuckets: 25,
+    nRows: 10,
+    nBuckets: 20,
     minVal: 0,
     maxVal: 100,
-    nBalls: 50,
+    nBalls: 10,
     onTouch: function () {
         console.log("Distbuilder was touched!")
     },
@@ -276,14 +276,15 @@ distbuilder.labelize({
 </code></pre>
         </div>
 
-        <h1>5. Accessing the user's choices</h1>
-        <p>The internal state of the Distribution Builder object can be conveniently accessed through three methods:</p>
+        <h1>5. Accessing the Distribution Builder</h1>
+        <p>After setting up the Distribution Builder, its internal state can be conveniently accessed through three
+            methods:</p>
         <ul>
             <li>
                 <p><code>DistributionBuilder.getDistribution()</code> returns the current allocation of balls in the
-                    form of an array of length nBuckets. If there are four buckets, and the user has allocated 2 balls
-                    to the first bucket, 1 to the third one, and 0 to the others, the function will return <code>[2, 0, 1, 0]</code>.
-                </p>
+                    form of an array of length nBuckets. If there are four buckets, and the user has allocated two balls
+                    to the first bucket, one to the third one, and zero to the second and fourth, the method will return
+                    <code>[2, 0, 1, 0]</code>.</p>
             </li>
             <li>
                 <p><code>DistributionBuilder.getRemainingBalls()</code> returns the number of balls that have not been
@@ -307,13 +308,13 @@ distbuilder.labelize({
         </div>
         <div class="highlight">
 
-<pre><code class="language-javascript">var n_balls = 20;
+<pre><code class="language-javascript">var n_balls = 10;
 $j('#BallsLeft').text("You have " + n_balls + " balls left.");
 $j('#BallsAllocated').text("You have allocated " + 0 + " balls.");
 var distbuilder = new DistributionBuilder({
     minVal: 0,
     maxVal: 100,
-    nRows: 20,
+    nRows: 10,
     nBuckets: 20,
     nBalls: n_balls,
     onChange: function () {
@@ -326,24 +327,26 @@ var distbuilder = new DistributionBuilder({
 distbuilder.render("targetdiv");
 distbuilder.labelize();</code></pre>
         </div>
-        <h2>B. Validating and accessing the distribution</h2>
-        <p>This is achieved in two steps:</p>
+        <h2>B. Validating the distribution</h2>
+        <p>You probably want the participants to your studies to allocate all the balls before being able to validate
+            their distribution. Fortunately, it is easy to add a button, and only enable it when all the balls have been
+            allocated:</p>
         <ul>
             <li>
-                Creating a <code>button</code> called “SubmitDistribution” with <code> disabled=true</code>, and binding
-                the <code>DistributionBuilder.getDistribution()</code> method to the button. When clicked, the button
-                will return the distribution specified by the user.
+                Create a <code>button</code> called “SubmitDistribution” with <code> disabled=true</code>. When clicked,
+                this button will for now display "Distribution Validated!".
             </li>
             <li>
-                Assigning a function that will enable or disable the button to the <code>onChange</code> argument. This
-                is done by accessing the value returned by the <code>DistributionBuilder.isComplete()</code> method.
+                Assign a function that will enable or disable the button to the <code>onChange</code> argument of the
+                DistributionBuilder object. This is done by using the value returned by the <code>DistributionBuilder.isComplete()</code>
+                method.
             </li>
         </ul>
-        <p>Together, those two steps are ensuring that the distribution is fully specified before it can be validated,
-            and that the resulting distribution can be accessed.</p>
+        <p>Together, those two steps are ensuring that the distribution is fully specified before the user can click the
+            button.</p>
         <div class="bs-example">
             <div style="text-align: center;margin-bottom: 3px;">
-                <button class="btn btn-default" id="SubmitDistribution" disabled=true>
+                <button class="btn btn-default" id="SubmitDistribution1" disabled=true>
                     Submit Distribution
                 </button>
             </div>
@@ -354,9 +357,9 @@ distbuilder.labelize();</code></pre>
 <pre><code class="language-javascript">var distbuilder = new DistributionBuilder({
     minVal: 0,
     maxVal: 100,
-    nRows: 20,
+    nRows: 10,
     nBuckets: 20,
-    nBalls: 20,
+    nBalls: 10,
     onChange: function () {
         if (this.isComplete()) {
             $j("#SubmitDistribution").attr("disabled", false)
@@ -365,10 +368,102 @@ distbuilder.labelize();</code></pre>
         }
     }
 });
-$j("#SubmitDistribution").click(function() {alert(distbuilder.getDistribution())});
+$j("#SubmitDistribution").click(function() {alert("Distribution Validated!")});
 distbuilder.render("targetdiv");
 distbuilder.labelize({});</code></pre>
         </div>
+        <h2>C. Accessing the distribution</h2>
+        <p>We would now like to see in which buckets the balls have been allocated when the user validates the
+            distribution by clicking on the button.</p>
+        <p>Building upon the previous example, we can change the message
+            "Distribution Validated!" to display the actual distribution that the user has specified. by using the
+            method <code>DistributionBuilder.getDistribution()</code></p>
+        <div class="bs-example">
+            <div style="text-align: center;margin-bottom: 3px;">
+                <button class="btn btn-default" id="SubmitDistribution2" disabled=true>
+                    View Distribution
+                </button>
+            </div>
+            <div id="targetdiv6" style="width:100%; margin: 0 auto;"></div>
+        </div>
+
+        <div class="highlight">
+<pre><code class="language-javascript">var distbuilder = new DistributionBuilder({
+    minVal: 0,
+    maxVal: 100,
+    nRows: 10,
+    nBuckets: 20,
+    nBalls: 10,
+    onChange: function () {
+        if (this.isComplete()) {
+            $j("#SubmitDistribution").attr("disabled", false)
+        } else {
+            $j("#SubmitDistribution").attr("disabled", true)
+        }
+    }
+});
+$j("#SubmitDistribution").click(function() {
+    var message = "The distribution specified by the user is: " + distbuilder.getDistribution();
+    alert(message)
+});
+distbuilder.render("targetdiv");
+distbuilder.labelize({});</code></pre>
+        </div>
+        <h2>D. Storing the distribution in Qualtrics</h2>
+        <p>You will often want the DistributionBuilder to be part of larger survey on Qualtrics, and you will want to
+            store the resulting distribution in a variable. the function returns an array, and not a string. This result
+            can be achieved in the following way:</p>
+        <ul>
+            <li>In the "Survey Flow" section of your survey, create a new Embedded Data field at the beginning of your
+                survey flow called <code>"MyDistributionResult"</code>, or any other name that you want to use. Leave
+                the value empty: this is where we are going to store the results.
+            </li>
+            <li>
+                You can now use the <code>Qualtrics.SurveyEngine.setEmbeddedData()</code> function provided by Qualtrics
+                to store a value in the <code>"MyDistributionResult"</code> variable. The syntax is: <code>Qualtrics.SurveyEngine.setEmbeddedData("MyDistributionResult", "TheStringYouWantToStoreHere")</code>
+            </li>
+            <li>This Qualtrics function requires a string, but the method
+                <code>DistributionBuilder.getDistribution()</code> does not return a string: it returns an array. You
+                must therefore convert this array into a string first. To do so, simply use <code>DistributionBuilder.getDistribution().join()</code>.
+                This will join the elements of the array by commas, and you will be able to store it in Qualtrics.
+            </li>
+        </ul>
+        <p>Adding the code to the previous example:</p>
+        <div class="bs-example">
+            <div style="text-align: center;margin-bottom: 3px;">
+                <button class="btn btn-default" id="SubmitDistribution3" disabled=true>
+                    Store Distribution in Qualtrics
+                </button>
+            </div>
+            <div id="targetdiv7" style="width:100%; margin: 0 auto;"></div>
+        </div>
+
+        <div class="highlight">
+<pre><code class="language-javascript"> var distbuilder = new DistributionBuilder({
+    minVal: 0,
+    maxVal: 100,
+    nRows: 10,
+    nBuckets: 20,
+    nBalls: 10,
+    onChange: function () {
+        if (this.isComplete()) {
+            $j("#SubmitDistribution3").attr("disabled", false)
+        } else {
+            $j("#SubmitDistribution3").attr("disabled", true)
+        }
+    }
+});
+distbuilder.render("targetdiv");
+distbuilder.labelize({});
+$j("#SubmitDistribution").click(function () {
+    var results = distbuilder.getDistribution().join()
+    Qualtrics.SurveyEngine.setEmbeddedData("MyDistributionResult", results);
+    var message = 'The function "Qualtrics.SurveyEngine.setEmbeddedData("MyDistributionResult", ';
+    message +=  results + ') was called. Your data would have been stored in Qualtrics!';
+    alert(message)
+});</code></pre>
+        </div>
+
         <h1>6. CSS Specification</h1>
         <p>If you want to customize the appearance of the distribution builder, the full list of classes defined by the
             stylesheet can be found in the <code>distributionbuilder.css</code> file.</p>
