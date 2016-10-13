@@ -67,13 +67,15 @@
         <h1>2. Installation</h1>
         <p>To add the library to your projects and start using DistributionBuilder, just follow the instructions
             below.</p>
-        <h2>A. Adding DistributionBuilder to a website</h2>
+        <h2>A. Adding to a website</h2>
+        <p>If you are hosting your experiment on a separate website, here is how to add the script:</p>
         <ol>
             <li>
                 Download the Library using the button at the top of the page.
             </li>
             <li><p>Add the Javascript file <code>distributionbuilder.min.js</code> and the CSS file <code>distributionbuilder.css</code>
-                to your html code:</p><pre><code class="html">&lt;link rel="stylesheet" href="distributionbuilder.css"&gt;
+                to your html code:</p>
+                <pre><code class="html">&lt;link rel="stylesheet" href="distributionbuilder.css"&gt;
 &lt;script src="distributionbuilder.min.js"&gt;&lt;/script&gt;</code></pre>
             </li>
             <li>
@@ -82,18 +84,21 @@
                 Instead of typing <code>$('#Hello')</code>, type <code>$j('#Hello')</code>.
             </li>
         </ol>
-        <h2>B. Adding DistributionBuilder to a Qualtrics survey</h2>
+        <h2>B. Adding to Qualtrics</h2>
+        <p>Should you want to add DistributionBuilder to a Qualtrics survey, here is how to proceed:</p>
         <ol>
             <li>Navigate to the "Look and Feel" section of your survey, and click on the "Advanced" tab</li>
             <li>
                 Edit the "Header" section, and add the following lines to load the library script and the library
-                styles:<br><pre><code class="html">&lt;link rel="stylesheet" href="https://raw.githubusercontent.com/QuentinAndre/DistributionBuilder/master/distributionbuilder.css"&gt;
+                styles:<br>
+                <pre><code class="html">&lt;link rel="stylesheet" href="https://raw.githubusercontent.com/QuentinAndre/DistributionBuilder/master/distributionbuilder.css"&gt;
 &lt;script src="https://raw.githubusercontent.com/QuentinAndre/DistributionBuilder/master/distributionbuilder.min.js"&gt;&lt;/script&gt;</code></pre>
             </li>
+
             <li>
-                That's it! You can now add your own distribution builders in your Qualtrics questions. No need to
-                include jQuery! DistributionBuilder automatically injects it, and makes it accessible under the
-                <code>$j</code> alias. Instead of typing <code>$('#Hello')</code>, type <code>$j('#Hello')</code>.
+                That's it! You can now add your own distribution builders in the "Custom Javascript" section of your
+                Qualtrics questions. No need to include jQuery! DistributionBuilder automatically injects it, and makes
+                it accessible under the <code>$j</code> alias. Instead of typing <code>$('#Hello')</code>, type <code>$j('#Hello')</code>.
             </li>
         </ol>
 
@@ -101,6 +106,18 @@
 
         <p>The library is extremely easy to use: it allows you to add fully functional distribution builders in a few
             lines of code.</p>
+        <ul>
+            <li>For a website, add <code>&lt;div id="targetdiv"&gt</code> to your HTML, and copy the code below between
+                your
+                two <code>&lt;script&gt;</code> tags.
+            </li>
+            <li>For Qualtrics, add a <code>&lt;div id="targetdiv"&gt</code> to the HTML of your question, and copy the
+                code below in the "Custom Javascript" section. See <a
+                        href="https://www.qualtrics.com/support/survey-platform/survey-module/question-options/add-javascript/"
+                        target="_blank">this link</a> if you have never added Javascript to a Qualtrics question before.
+            </li>
+        </ul>
+
         <div class="bs-example">
             <div id="targetdiv0" style="width:50%; margin: 0 auto;"></div>
         </div>
@@ -109,8 +126,8 @@
 distbuilder.render("targetdiv");
 distbuilder.labelize();</code></pre>
         </div>
-        <p>In just three lines of code, you have created a Distribution Builder in the &lt;div&gt; section called
-            “targetdiv”. It consists of three elements:</p>
+        <p>In just three lines of code, you have created a Distribution Builder in the <code>&lt;div&gt;</code> section
+            called “targetdiv”. It consists of three elements:</p>
 
         <ul>
             <li>The <strong>grid</strong>, an matrix of cells in which the balls allocated are displayed.</li>
@@ -118,11 +135,11 @@ distbuilder.labelize();</code></pre>
             <li>The <strong>buttons</strong>, which allow the user to increment or decrement a bucket.</li>
         </ul>
         <p>Each of these elements can be customized to your liking, both using the Javascript methods wrapped by the
-            library and the CSS. Browse the section below to discover how you can customize the appearance and
+            library and the CSS. Browse the sections below to discover how you can customize the appearance and
             functionalities of the distribution builder, access the results of your participants, and implement more
             complex logics in your studies.</p>
 
-        <h1>4. Customizing the Distribution Builder</h1>
+        <h1>4. Customization</h1>
         <p>The complete creation of a Distribution Builder object is done in three phases:</p>
         <ul>
             <li>A. Initialization</li>
@@ -236,7 +253,8 @@ distbuilder.labelize();
         <p><code>DistributionBuilder.labelize()</code></p>
         <p>By default, the Distribution Builder automatically creates evenly spaced labels, using the distance between
             the minimum and maximum value and the number of buckets using the following code:</p>
-        <p><pre><code>step = (maxValue - minValue)/nBuckets;
+        <p>
+        <pre><code>step = (maxValue - minValue)/nBuckets;
 labels = [minValue + step/2 + step*0, minValue + step/2 + step*1, ..., minValue + step/2 +step*(nBuckets-1)]</code></pre>
         </p><p>Calling the method <code>DistributionBuilder.labelize()</code> without arguments will display those
         labels. However, you are free to customize the labels using the following arguments:</p>
@@ -276,7 +294,7 @@ distbuilder.labelize({
 </code></pre>
         </div>
 
-        <h1>5. Accessing the Distribution Builder</h1>
+        <h1>5. Reading the Data</h1>
         <p>After setting up the Distribution Builder, its internal state can be conveniently accessed through three
             methods:</p>
         <ul>
@@ -409,7 +427,7 @@ $j("#SubmitDistribution").click(function() {
 distbuilder.render("targetdiv");
 distbuilder.labelize({});</code></pre>
         </div>
-        <h2>D. Storing the distribution in Qualtrics</h2>
+        <h2>D. Storing the data in Qualtrics</h2>
         <p>You will often want the Distribution Builder to be part of larger survey on Qualtrics, and you will want to
             store the resulting distribution in a variable. This result can be achieved in the following way:</p>
         <ul>
@@ -419,7 +437,8 @@ distbuilder.labelize({});</code></pre>
             </li>
             <li>
                 You can now use the <code>Qualtrics.SurveyEngine.setEmbeddedData()</code> function provided by Qualtrics
-                to store a value in the <code>"MyDistributionResult"</code> variable. The syntax is: <code>Qualtrics.SurveyEngine.setEmbeddedData("MyDistributionResult", "TheStringYouWantToStoreHere")</code>
+                to store a value in the <code>"MyDistributionResult"</code> variable. The syntax is: <code>Qualtrics.SurveyEngine.setEmbeddedData("MyDistributionResult",
+                "TheStringYouWantToStoreHere")</code>
             </li>
             <li>This Qualtrics function requires a string, but the method
                 <code>DistributionBuilder.getDistribution()</code> does not return a string: it returns an array. You
@@ -509,7 +528,7 @@ $j("#SubmitDistribution").click(function () {
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-        <h1>7. About DistributionBuilder</h1>
+        <h1>7. About this Library</h1>
         <p>DistributionBuilder is published under the <a
                 href="https://github.com/QuentinAndre/DistributionBuilder/blob/master/LICENSE" target="_blank">MIT
             license</a>. The code is written in the ES2015 specification of Javascript, and is transpiled in legacy code
