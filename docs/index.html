@@ -132,7 +132,7 @@
 distbuilder.render("targetdiv");
 distbuilder.labelize();</code></pre>
         </div>
-        <p>In just three lines of code, you have created a Distribution Builder in the <code>&lt;div&gt;</code> section
+        <p>In just three lines of code, you have created an interactive (try it!) Distribution Builder in the <code>&lt;div&gt;</code> section
             called “targetdiv”. It consists of three elements:</p>
 
         <ul>
@@ -471,9 +471,9 @@ distbuilder.labelize({});</code></pre>
     nBalls: 10,
     onChange: function () {
         if (this.isComplete()) {
-            $j("#SubmitDistribution3").attr("disabled", false)
+            $j("#SubmitDistribution").attr("disabled", false)
         } else {
-            $j("#SubmitDistribution3").attr("disabled", true)
+            $j("#SubmitDistribution").attr("disabled", true)
         }
     }
 });
