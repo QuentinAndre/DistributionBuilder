@@ -27,8 +27,7 @@
         <span id="logo"></span>
 
         <a href="https://github.com/QuentinAndre/DistributionBuilder" target="_blank" class="button fork"><strong>View
-            On GitHub</strong></a>
-        <span class="downloads"><ul>
+            On GitHub</strong></a> <span class="downloads"><ul>
             <span>Downloads:</span>
             <li>
                 <a class="button"
@@ -53,22 +52,27 @@
             understanding of probability distributions'</strong> (2014)</a>, published in 2014, Daniel Goldstein and
             David Rothschild have highlighted the benefits of using graphical interfaces called <strong>distribution
                 builders</strong> to study subjective probabilities, perceptions of frequency, and confidence
-            judgements. However, the implementation of such distribution builders in online studies is not
-            straightforward, as most survey platforms do not include such builders. </p>
+            judgements. This tool was first developed by Sharpe, Goldstein and Blythe (<a
+                    href="http://web.stanford.edu/~wfsharpe/art/qpaper/qpaper.html" target="_blank">2000</a>), and was
+            featured later in Blythe, Goldstein, Johnson and Sharpe (<a
+                    href="http://www.dangoldstein.com/papers/GoldsteinJohnsonSharpe_OutcomesVsProducts_JCR08.pdf"
+                    target="_blank">2008</a>) and Delavande and Rhowedder (<a
+                    href="http://poq.oxfordjournals.org/content/early/2007/12/31/poq.nfn062.extract" target="_blank">2008</a>).
+            However, the implementation of such distribution builders in online studies is not straightforward, as most
+            survey platforms do not implement this type of question. </p>
         <p>The DistributionBuilder library was created to address this issue, and make the implementation of
             distribution builders easy and accessible to researchers. The library is user-friendly, and requires very
             little programming knowledge to be used.</p>
         <h2>B. Citing DistributionBuilder</h2>
-        <p>You can cite DistributionBuilder in the following way (click for Bib citation file):<br>
-            <em><a href="https://github.com/QuentinAndre/DistributionBuilder/raw/master/reference.bib"><b>André, Q.
-                (2016).
-                DistributionBuilder (Version 1.0.0) [Computer software].<br>Retrieved from
-                http://quentinandre.github.io/DistributionBuilder</b></a></em></p>
+        <p>You can cite DistributionBuilder in the following way (click for Bib citation file):<br> <em><a
+                href="https://github.com/QuentinAndre/DistributionBuilder/raw/master/reference.bib"><b>André, Q. (2016).
+            DistributionBuilder (Version 1.0.0) [Computer software].<br>Retrieved from
+            http://quentinandre.github.io/DistributionBuilder</b></a></em></p>
         <h2>C. About the author</h2>
         <p>This library was developed by <strong>Quentin Andre</strong>, a PhD candidate in Marketing at INSEAD Business
             School, France. If you have any comment, feedback or suggestion regarding this library or its documentation,
-            please let me know at <a
-                    href="mailto:quentin@andre@insead.edu">quentin.andre@insead.edu</a> or use GitHub issues.</p>
+            please let me know at <a href="mailto:quentin@andre@insead.edu">quentin.andre@insead.edu</a> or use GitHub
+            issues.</p>
 
         <h1>2. Installation</h1>
         <p>To add the library to your projects and start using DistributionBuilder, just follow the instructions
@@ -114,8 +118,7 @@
             lines of code.</p>
         <ul>
             <li>For a website, add <code>&lt;div id="targetdiv"&gt</code> to your HTML, and copy the code below between
-                your
-                two <code>&lt;script&gt;</code> tags.
+                your two <code>&lt;script&gt;</code> tags.
             </li>
             <li>For Qualtrics, add a <code>&lt;div id="targetdiv"&gt</code> to the HTML of your question, and copy the
                 code below in the "Custom Javascript" section. See <a
@@ -132,8 +135,8 @@
 distbuilder.render("targetdiv");
 distbuilder.labelize();</code></pre>
         </div>
-        <p>In just three lines of code, you have created an interactive (try it!) Distribution Builder in the <code>&lt;div&gt;</code> section
-            called “targetdiv”. It consists of three elements:</p>
+        <p>In just three lines of code, you have created an interactive (try it!) Distribution Builder in the <code>&lt;div&gt;</code>
+            section called “targetdiv”. It consists of three elements:</p>
 
         <ul>
             <li>The <strong>grid</strong>, an matrix of cells in which the balls allocated are displayed.</li>
@@ -541,6 +544,11 @@ $j("#SubmitDistribution").click(function () {
             for cross-browsers compatibility. It is developed upon the <a href="https://jquery.com/" target="_blank">jQuery</a>
             library, and uses some elements of <a href="http://getbootstrap.com/getting-started/" target="_blank">Bootstrap</a>
             for styling.</p>
+        <p>I am grateful for the financial support of ADL Partner and INSEAD, the comments of <a
+                href="http://www.colorado.edu/business/nicholas-reinholtz" target="_blank">Nicholas Reinholtz</a> and <a
+                href="http://www.colorado.edu/business/bart-de-langhe" target="_blank">Bart de Langhe</a> on previous
+            versions of the Distribution Builder, and <a href="http://www.dangoldstein.com/">Dan Goldstein</a>'s
+            references on the history of the distribution builder.</p>
         <p>This page is hosted on GitHub Pages. Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></p>
     </section>
 </div>
