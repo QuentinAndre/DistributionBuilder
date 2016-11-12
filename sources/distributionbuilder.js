@@ -8,6 +8,7 @@ var $j = jQuery.noConflict();
 import MouseHold from './../dependencies/mousehold'
 MouseHold($j);
 require('expose?$j!expose?jQuery!jquery');
+
 class DistributionBuilder {
     constructor(o) {
         var obj = o ? o : {};
@@ -181,4 +182,4 @@ class DistributionBuilder {
 
 }
 
-export default DistributionBuilder;
+module.exports = DistributionBuilder;
