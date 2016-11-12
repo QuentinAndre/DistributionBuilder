@@ -95,7 +95,11 @@
             </li>
         </ol>
         <h2>B. Adding to Qualtrics</h2>
-        <p>Should you want to add DistributionBuilder to a Qualtrics survey, here is how to proceed:</p>
+        <p>If you prefer starting from a minimal working example and tweaking it, <a
+                href="https://github.com/QuentinAndre/DistributionBuilder/raw/master/QualtricsExample.qsf">you can find
+            a fully functional integration to Qualtrics here</a>
+        </p>
+        <p>If you prefer detailed instructions, just follow these simple steps:</p>
         <ol>
             <li>Navigate to the "Look and Feel" section of your survey, and click on the "Advanced" tab</li>
             <li>
@@ -106,10 +110,8 @@
             </li>
             <li>
                 That's it! You can now add your own distribution builders in the "Custom Javascript" section of your
-                Qualtrics questions. You can find a fully functional integration to Qualtrics <a
-                    href="https://github.com/QuentinAndre/DistributionBuilder/raw/master/QualtricsExample.qsf">here</a>No
-                need to include jQuery! DistributionBuilder automatically injects it, and makes it accessible under the
-                <code>$j</code> alias. Instead of typing <code>$('#Hello')</code>, type <code>$j('#Hello')</code>.
+                Qualtrics questions. No need to include jQuery! DistributionBuilder automatically injects it, and makes
+                it accessible under the <code>$j</code> alias. Instead of typing <code>$('#Hello')</code>, type <code>$j('#Hello')</code>.
             </li>
         </ol>
 
