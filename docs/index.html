@@ -72,7 +72,8 @@
         <p>This library was developed by <strong>Quentin Andre</strong>, a PhD candidate in Marketing at INSEAD Business
             School, France. If you have any comment, feedback or suggestion regarding this library or its documentation,
             please let me know at <a href="mailto:quentin@andre@insead.edu">quentin.andre@insead.edu</a> or use GitHub
-            issues.</p>
+            issues. If you are a Qualtrics user, I'd be also happy to share with you a Qualtrics survey demonstrating
+            how to use the library.</p>
 
         <h1>2. Installation</h1>
         <p>To add the library to your projects and start using DistributionBuilder, just follow the instructions
@@ -101,10 +102,9 @@
             <li>
                 Edit the "Header" section, and add the following lines to load the library script and the library
                 styles:<br>
-                <pre><code class="html">&lt;link rel="stylesheet" href="https://raw.githubusercontent.com/QuentinAndre/DistributionBuilder/master/distributionbuilder.css"&gt;
-&lt;script src="https://raw.githubusercontent.com/QuentinAndre/DistributionBuilder/master/distributionbuilder.min.js"&gt;&lt;/script&gt;</code></pre>
+                <pre><code class="html">&lt;link rel="stylesheet" href="https://cdn.rawgit.com/QuentinAndre/DistributionBuilder/master/distributionbuilder.css"&gt;
+&lt;script src="https://cdn.rawgit.com/QuentinAndre/DistributionBuilder/master/distributionbuilder.min.js"&gt;&lt;/script&gt;</code></pre>
             </li>
-
             <li>
                 That's it! You can now add your own distribution builders in the "Custom Javascript" section of your
                 Qualtrics questions. No need to include jQuery! DistributionBuilder automatically injects it, and makes
@@ -373,9 +373,7 @@ distbuilder.labelize();</code></pre>
             button.</p>
         <div class="bs-example">
             <div style="text-align: center;margin-bottom: 3px;">
-                <button class="btn btn-default" id="SubmitDistribution1" disabled=true>
-                    Submit Distribution
-                </button>
+                <a class="btn btn-default" id="SubmitDistribution1" disabled=true> Submit Distribution </a>
             </div>
             <div id="targetdiv5" style="width:100%; margin: 0 auto;"></div>
         </div>
@@ -407,9 +405,7 @@ distbuilder.labelize({});</code></pre>
             <code>DistributionBuilder.getDistribution()</code>.</p>
         <div class="bs-example">
             <div style="text-align: center;margin-bottom: 3px;">
-                <button class="btn btn-default" id="SubmitDistribution2" disabled=true>
-                    View Distribution
-                </button>
+                <a class="btn btn-default" id="SubmitDistribution2" disabled=true> View Distribution </a>
             </div>
             <div id="targetdiv6" style="width:100%; margin: 0 auto;"></div>
         </div>
@@ -458,9 +454,7 @@ distbuilder.labelize({});</code></pre>
         <p>Adding the code to the previous example:</p>
         <div class="bs-example">
             <div style="text-align: center;margin-bottom: 3px;">
-                <button class="btn btn-default" id="SubmitDistribution3" disabled=true>
-                    Store Distribution in Qualtrics
-                </button>
+                <a class="btn btn-default" id="SubmitDistribution3" disabled=true> Store Distribution in Qualtrics </a>
             </div>
             <div id="targetdiv7" style="width:100%; margin: 0 auto;"></div>
         </div>
@@ -548,7 +542,9 @@ $j("#SubmitDistribution").click(function () {
                 href="http://www.colorado.edu/business/nicholas-reinholtz" target="_blank">Nicholas Reinholtz</a> and <a
                 href="http://www.colorado.edu/business/bart-de-langhe" target="_blank">Bart de Langhe</a> on previous
             versions of the Distribution Builder, and <a href="http://www.dangoldstein.com/">Dan Goldstein</a>'s
-            references on the history of the distribution builder.</p>
+            references on the history of the distribution builder. I would also like to thank <a
+                    href="https://www.researchgate.net/profile/Ignazio_Ziano">Ignazio Ziano</a> for uncovering a bug
+            when trying to use the library.</p>
         <p>This page is hosted on GitHub Pages. Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></p>
     </section>
 </div>
