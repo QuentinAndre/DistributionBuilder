@@ -4,8 +4,8 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
     entry: {
         'docs/demo/js/main': ["./sources/demo.js"],
-        'distributionbuilder': ["./sources/distributionbuilder.js"],
-        'distributionbuilder.min': ["./sources/distributionbuilder.js"]
+        'distributionbuilder': ["./sources/entry.js"],
+        'distributionbuilder.min': ["./sources/entry.js"]
     },
     output: {
         path: __dirname,

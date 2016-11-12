@@ -53,238 +53,34 @@
 /***/ 38:
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Created by Quentin on 07/10/2016.
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
-
-
-	var _jquery = __webpack_require__(39);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var _mousehold = __webpack_require__(40);
-
-	var _mousehold2 = _interopRequireDefault(_mousehold);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	__webpack_require__(41);
-	__webpack_require__(45);
-	var $j = _jquery2.default.noConflict();
-
-	(0, _mousehold2.default)($j);
-	__webpack_require__(55);
-
-	var DistributionBuilder = function () {
-	    function DistributionBuilder(o) {
-	        _classCallCheck(this, DistributionBuilder);
-
-	        var obj = o ? o : {};
-	        this.min = obj.hasOwnProperty('minVal') ? obj.minVal : 0;
-	        this.max = obj.hasOwnProperty('maxVal') ? obj.maxVal : 10;
-	        this.nBalls = obj.hasOwnProperty('nBalls') ? obj.nBalls : 10;
-	        this.nRows = obj.hasOwnProperty('nRows') ? obj.nRows : 10;
-	        this.nBuckets = obj.hasOwnProperty('nBuckets') ? obj.nBuckets : 10;
-	        this.onTouch = obj.hasOwnProperty('onTouch') ? obj.onTouch : function () {};
-	        this.onChange = obj.hasOwnProperty('onChange') ? obj.onChange : function () {};
-	        this.remainingBalls = this.nBalls;
-	        this.distribution = new Array(this.nBuckets).fill(0);
-	        this._$target = false;
-	    }
-
-	    _createClass(DistributionBuilder, [{
-	        key: 'render',
-	        value: function render(target, o, r) {
-	            if (this._$target) {
-	                this._$target.html('');
-	                this._$target.removeClass('distbuilder');
-	            }
-	            var parts = {
-	                'grid': this._getGrid($target),
-	                'labels': this._getLabels($target),
-	                'buttons': this._getButtons($target)
-	            };
-	            var validOrder = new RegExp('(buttons-grid-labels)|(grid-labels-buttons)|(labels-grid-buttons)|(labels-buttons-grid)|(grid-buttons-labels)|(buttons-labels-grid)', 'g');
-	            var $target = $j('#' + target); //Target Div of Grid
-	            this._$target = $target;
-	            $target.addClass('distbuilder');
-	            var order = o ? o : "grid-labels-buttons";
-	            var resize = r ? r : true;
-	            if (!validOrder.test(order)) {
-	                throw "The order '" + o + "' could not be understood. Make sure " + "that the order is any combination of 'labels', 'grid', and " + "'button, separated by '-'.";
-	            } else {
-	                var renderorder = order.split('-');
-	                renderorder.map(function (e) {
-	                    return $target.append(parts[e]);
-	                });
-	            }
-	            if (resize) {
-	                this._resizeGrid();
-	            }
-	        }
-	    }, {
-	        key: 'labelize',
-	        value: function labelize(o) {
-	            var _this = this;
-
-	            var obj = o ? o : {};
-	            var values = [];
-	            if (obj.hasOwnProperty('labels')) {
-	                values = obj.labels;
-	            } else {
-	                (function () {
-	                    var step = (_this.max - _this.min) / _this.nBuckets;
-	                    values = Array.from({ length: _this.nBuckets }, function (value, key) {
-	                        return _this.min + key * step + step / 2;
-	                    });
-	                })();
-	            }
-	            var prefix = obj.hasOwnProperty('prefix') ? obj.prefix : '';
-	            var suffix = obj.hasOwnProperty('suffix') ? obj.suffix : '';
-	            var labels = values.map(function (v) {
-	                return prefix + v + suffix;
-	            });
-	            this._setLabels(labels);
-	        }
-	    }, {
-	        key: 'isComplete',
-	        value: function isComplete() {
-	            return this.remainingBalls == 0;
-	        }
-	    }, {
-	        key: 'getRemainingBalls',
-	        value: function getRemainingBalls() {
-	            return this.remainingBalls;
-	        }
-	    }, {
-	        key: 'getDistribution',
-	        value: function getDistribution() {
-	            return this.distribution;
-	        }
-	    }, {
-	        key: '_setLabels',
-	        value: function _setLabels(labels) {
-	            var _this2 = this;
-
-	            labels.map(function (l, i) {
-	                var label = _this2._$target.find('.label' + i);
-	                label.html(l);
-	            });
-	        }
-	    }, {
-	        key: '_actionCreator',
-	        value: function _actionCreator(action) {
-	            var _this3 = this;
-
-	            if (action == 'increment') {
-	                return function (bucket) {
-	                    return function () {
-	                        _this3.onTouch();
-	                        if (_this3.distribution[bucket] < _this3.nRows && _this3.remainingBalls > 0) {
-	                            var rowIndex = _this3.distribution[bucket];
-	                            _this3._$target.find(".row" + rowIndex + ">.col" + bucket).addClass("filled");
-	                            _this3.distribution[bucket]++;
-	                            _this3.remainingBalls--;
-	                            _this3.onChange();
-	                        }
-	                    };
-	                };
-	            } else {
-	                return function (bucket) {
-	                    return function () {
-	                        _this3.onTouch();
-	                        if (_this3.distribution[bucket] > 0) {
-	                            _this3.distribution[bucket]--;
-	                            var rowIndex = _this3.distribution[bucket];
-	                            _this3._$target.find(".row" + rowIndex + ">.col" + bucket).removeClass("filled");
-	                            _this3.remainingBalls++;
-	                            _this3.onChange();
-	                        }
-	                    };
-	                };
-	            }
-	        }
-	    }, {
-	        key: '_resizeGrid',
-	        value: function _resizeGrid() {
-	            var rowwidth = (this._$target.find('>.grid>.distrow').width() - 5) / this.nBuckets;
-	            var cellwidth = this._$target.find('>.grid>.distrow>.cell').outerWidth();
-	            var cellmargin = (rowwidth - cellwidth) / 2;
-	            this._$target.find('>.grid>.distrow>.cell').css({ 'margin-left': cellmargin, 'margin-right': cellmargin });
-	            this._$target.find('>.buttons>.distrow>.buttongroup').css({ 'width': rowwidth });
-	            this._$target.find('>.labels>.distrow>.label').css({ 'width': rowwidth });
-	        }
-	    }, {
-	        key: '_getGrid',
-	        value: function _getGrid($target) {
-	            var nRows = this.nRows;
-	            var nBuckets = this.nBuckets;
-	            var $grid = $j('<div>', { class: "grid" }); //Div holding the grid
-	            for (var row = 0; row < nRows; row++) {
-	                // Create as many rows as needed
-	                var rowIndex = nRows - row - 1; // Row number 0 is the bottom-most row.
-	                var $lineDiv = $j('<div>', { class: "distrow row" + rowIndex });
-	                for (var col = 0; col < nBuckets; col++) {
-	                    // Create as many cells as needed
-	                    var $colDiv = $j("<div>", { "class": "cell " + "col" + col });
-	                    $lineDiv.append($colDiv); // Add each cell to the row
-	                }
-	                $grid.append($lineDiv); // Add each row to the grid div
-	            }
-	            return $grid;
-	        }
-	    }, {
-	        key: '_getButtons',
-	        value: function _getButtons($target) {
-	            var incrementAction = this._actionCreator('increment'); //Currying functions
-	            var decrementAction = this._actionCreator('decrement'); //Currying functions
-	            var $lineDivButtons = $j("<div>", { class: "distrow" });
-	            var $buttons = $j('<div>', { class: "buttons" }); //Div holding the buttons
-	            for (var col = 0; col < this.nBuckets; col++) {
-	                var $divButtons = $j("<div>", { "class": "buttongroup" });
-	                var $addButton = $j('<a>', { class: "btn btn-default distbutton glyphicon glyphicon-plus" });
-	                var $removeButton = $j('<a>', { class: "btn btn-default distbutton glyphicon glyphicon-minus" });
-	                $divButtons.append($addButton.mousehold(200, 100, incrementAction(col)).click(incrementAction(col)));
-	                $divButtons.append($removeButton.mousehold(200, 100, decrementAction(col)).click(decrementAction(col)));
-	                $lineDivButtons.append($divButtons);
-	            }
-	            $buttons.append($lineDivButtons);
-	            return $buttons;
-	        }
-	    }, {
-	        key: '_getLabels',
-	        value: function _getLabels($target) {
-	            var $labels = $j('<div>', { class: "labels" }); //Div holding the buttons
-	            var $lineDivLabels = $j("<div>", { "class": "distrow" });
-	            for (var col = 0; col < this.nBuckets; col++) {
-	                var $divLabel = $j("<div>", { "class": "label" + " label" + col });
-	                $lineDivLabels.append($divLabel);
-	            }
-	            $labels.append($lineDivLabels); // Add each row to the grid div
-	            return $labels;
-	        }
-	    }]);
-
-	    return DistributionBuilder;
-	}();
-
-	exports.default = DistributionBuilder;
+	__webpack_require__(39);
+	__webpack_require__(42);
 
 /***/ },
 
 /***/ 39:
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["$j"] = __webpack_require__(40);
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+
+/***/ 40:
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["jQuery"] = __webpack_require__(41);
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+
+/***/ 41:
+/***/ function(module, exports, __webpack_require__) {
+
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*** IMPORTS FROM imports-loader ***/
-	var jQuery = __webpack_require__(39);
+	var jQuery = __webpack_require__(41);
 
 	/*!
 	 * jQuery JavaScript Library v3.1.1
@@ -10511,7 +10307,245 @@
 
 /***/ },
 
-/***/ 40:
+/***/ 42:
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["DistributionBuilder"] = __webpack_require__(43);
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+
+/***/ 43:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Created by Quentin on 07/10/2016.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+
+	var _jquery = __webpack_require__(41);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _mousehold = __webpack_require__(44);
+
+	var _mousehold2 = _interopRequireDefault(_mousehold);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	__webpack_require__(45);
+	__webpack_require__(49);
+	var $j = _jquery2.default.noConflict();
+
+	(0, _mousehold2.default)($j);
+	__webpack_require__(39);
+
+	var DistributionBuilder = function () {
+	    function DistributionBuilder(o) {
+	        _classCallCheck(this, DistributionBuilder);
+
+	        var obj = o ? o : {};
+	        this.min = obj.hasOwnProperty('minVal') ? obj.minVal : 0;
+	        this.max = obj.hasOwnProperty('maxVal') ? obj.maxVal : 10;
+	        this.nBalls = obj.hasOwnProperty('nBalls') ? obj.nBalls : 10;
+	        this.nRows = obj.hasOwnProperty('nRows') ? obj.nRows : 10;
+	        this.nBuckets = obj.hasOwnProperty('nBuckets') ? obj.nBuckets : 10;
+	        this.onTouch = obj.hasOwnProperty('onTouch') ? obj.onTouch : function () {};
+	        this.onChange = obj.hasOwnProperty('onChange') ? obj.onChange : function () {};
+	        this.remainingBalls = this.nBalls;
+	        this.distribution = new Array(this.nBuckets).fill(0);
+	        this._$target = false;
+	    }
+
+	    _createClass(DistributionBuilder, [{
+	        key: 'render',
+	        value: function render(target, o, r) {
+	            if (this._$target) {
+	                this._$target.html('');
+	                this._$target.removeClass('distbuilder');
+	            }
+	            var parts = {
+	                'grid': this._getGrid($target),
+	                'labels': this._getLabels($target),
+	                'buttons': this._getButtons($target)
+	            };
+	            var validOrder = new RegExp('(buttons-grid-labels)|(grid-labels-buttons)|(labels-grid-buttons)|(labels-buttons-grid)|(grid-buttons-labels)|(buttons-labels-grid)', 'g');
+	            var $target = $j('#' + target); //Target Div of Grid
+	            this._$target = $target;
+	            $target.addClass('distbuilder');
+	            var order = o ? o : "grid-labels-buttons";
+	            var resize = r ? r : true;
+	            if (!validOrder.test(order)) {
+	                throw "The order '" + o + "' could not be understood. Make sure " + "that the order is any combination of 'labels', 'grid', and " + "'button, separated by '-'.";
+	            } else {
+	                var renderorder = order.split('-');
+	                renderorder.map(function (e) {
+	                    return $target.append(parts[e]);
+	                });
+	            }
+	            if (resize) {
+	                this._resizeGrid();
+	            }
+	        }
+	    }, {
+	        key: 'labelize',
+	        value: function labelize(o) {
+	            var _this = this;
+
+	            var obj = o ? o : {};
+	            var values = [];
+	            if (obj.hasOwnProperty('labels')) {
+	                values = obj.labels;
+	            } else {
+	                (function () {
+	                    var step = (_this.max - _this.min) / _this.nBuckets;
+	                    values = Array.from({ length: _this.nBuckets }, function (value, key) {
+	                        return _this.min + key * step + step / 2;
+	                    });
+	                })();
+	            }
+	            var prefix = obj.hasOwnProperty('prefix') ? obj.prefix : '';
+	            var suffix = obj.hasOwnProperty('suffix') ? obj.suffix : '';
+	            var labels = values.map(function (v) {
+	                return prefix + v + suffix;
+	            });
+	            this._setLabels(labels);
+	        }
+	    }, {
+	        key: 'isComplete',
+	        value: function isComplete() {
+	            return this.remainingBalls == 0;
+	        }
+	    }, {
+	        key: 'getRemainingBalls',
+	        value: function getRemainingBalls() {
+	            return this.remainingBalls;
+	        }
+	    }, {
+	        key: 'getDistribution',
+	        value: function getDistribution() {
+	            return this.distribution;
+	        }
+	    }, {
+	        key: '_setLabels',
+	        value: function _setLabels(labels) {
+	            var _this2 = this;
+
+	            labels.map(function (l, i) {
+	                var label = _this2._$target.find('.label' + i);
+	                label.html(l);
+	            });
+	        }
+	    }, {
+	        key: '_actionCreator',
+	        value: function _actionCreator(action) {
+	            var _this3 = this;
+
+	            if (action == 'increment') {
+	                return function (bucket) {
+	                    return function () {
+	                        _this3.onTouch();
+	                        if (_this3.distribution[bucket] < _this3.nRows && _this3.remainingBalls > 0) {
+	                            var rowIndex = _this3.distribution[bucket];
+	                            _this3._$target.find(".row" + rowIndex + ">.col" + bucket).addClass("filled");
+	                            _this3.distribution[bucket]++;
+	                            _this3.remainingBalls--;
+	                            _this3.onChange();
+	                        }
+	                    };
+	                };
+	            } else {
+	                return function (bucket) {
+	                    return function () {
+	                        _this3.onTouch();
+	                        if (_this3.distribution[bucket] > 0) {
+	                            _this3.distribution[bucket]--;
+	                            var rowIndex = _this3.distribution[bucket];
+	                            _this3._$target.find(".row" + rowIndex + ">.col" + bucket).removeClass("filled");
+	                            _this3.remainingBalls++;
+	                            _this3.onChange();
+	                        }
+	                    };
+	                };
+	            }
+	        }
+	    }, {
+	        key: '_resizeGrid',
+	        value: function _resizeGrid() {
+	            var rowwidth = (this._$target.find('>.grid>.distrow').width() - 5) / this.nBuckets;
+	            var cellwidth = this._$target.find('>.grid>.distrow>.cell').outerWidth();
+	            var cellmargin = (rowwidth - cellwidth) / 2;
+	            this._$target.find('>.grid>.distrow>.cell').css({ 'margin-left': cellmargin, 'margin-right': cellmargin });
+	            this._$target.find('>.buttons>.distrow>.buttongroup').css({ 'width': rowwidth });
+	            this._$target.find('>.labels>.distrow>.label').css({ 'width': rowwidth });
+	        }
+	    }, {
+	        key: '_getGrid',
+	        value: function _getGrid($target) {
+	            var nRows = this.nRows;
+	            var nBuckets = this.nBuckets;
+	            var $grid = $j('<div>', { class: "grid" }); //Div holding the grid
+	            for (var row = 0; row < nRows; row++) {
+	                // Create as many rows as needed
+	                var rowIndex = nRows - row - 1; // Row number 0 is the bottom-most row.
+	                var $lineDiv = $j('<div>', { class: "distrow row" + rowIndex });
+	                for (var col = 0; col < nBuckets; col++) {
+	                    // Create as many cells as needed
+	                    var $colDiv = $j("<div>", { "class": "cell " + "col" + col });
+	                    $lineDiv.append($colDiv); // Add each cell to the row
+	                }
+	                $grid.append($lineDiv); // Add each row to the grid div
+	            }
+	            return $grid;
+	        }
+	    }, {
+	        key: '_getButtons',
+	        value: function _getButtons($target) {
+	            var incrementAction = this._actionCreator('increment'); //Currying functions
+	            var decrementAction = this._actionCreator('decrement'); //Currying functions
+	            var $lineDivButtons = $j("<div>", { class: "distrow" });
+	            var $buttons = $j('<div>', { class: "buttons" }); //Div holding the buttons
+	            for (var col = 0; col < this.nBuckets; col++) {
+	                var $divButtons = $j("<div>", { "class": "buttongroup" });
+	                var $addButton = $j('<a>', { class: "btn btn-default distbutton glyphicon glyphicon-plus" });
+	                var $removeButton = $j('<a>', { class: "btn btn-default distbutton glyphicon glyphicon-minus" });
+	                $divButtons.append($addButton.mousehold(200, 100, incrementAction(col)).click(incrementAction(col)));
+	                $divButtons.append($removeButton.mousehold(200, 100, decrementAction(col)).click(decrementAction(col)));
+	                $lineDivButtons.append($divButtons);
+	            }
+	            $buttons.append($lineDivButtons);
+	            return $buttons;
+	        }
+	    }, {
+	        key: '_getLabels',
+	        value: function _getLabels($target) {
+	            var $labels = $j('<div>', { class: "labels" }); //Div holding the buttons
+	            var $lineDivLabels = $j("<div>", { "class": "distrow" });
+	            for (var col = 0; col < this.nBuckets; col++) {
+	                var $divLabel = $j("<div>", { "class": "label" + " label" + col });
+	                $lineDivLabels.append($divLabel);
+	            }
+	            $labels.append($lineDivLabels); // Add each row to the grid div
+	            return $labels;
+	        }
+	    }]);
+
+	    return DistributionBuilder;
+	}();
+
+	exports.default = DistributionBuilder;
+
+/***/ },
+
+/***/ 44:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -10579,36 +10613,36 @@
 
 /***/ },
 
-/***/ 41:
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-
 /***/ 45:
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(46);
-	__webpack_require__(53);
-
-/***/ },
-
-/***/ 46:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 53:
+/***/ 49:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(54);
+	__webpack_require__(50);
+	__webpack_require__(57);
 
 /***/ },
 
-/***/ 54:
+/***/ 50:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 57:
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(58);
+
+/***/ },
+
+/***/ 58:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
@@ -10737,23 +10771,7 @@
 
 	}(jQuery);
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(39)))
-
-/***/ },
-
-/***/ 55:
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["$j"] = __webpack_require__(56);
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-
-/***/ 56:
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["jQuery"] = __webpack_require__(39);
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
 
 /***/ }
 
