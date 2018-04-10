@@ -11,7 +11,7 @@ require('expose?$j!expose?jQuery!jquery');
 
 class DistributionBuilder {
     constructor(o) {
-        var obj = o ? o : {};
+        let obj = o ? o : {};
         this.min = obj.hasOwnProperty('minVal') ? obj.minVal : 0;
         this.max = obj.hasOwnProperty('maxVal') ? obj.maxVal : 10;
         this.nBalls = obj.hasOwnProperty('nBalls') ? obj.nBalls : 10;
@@ -26,23 +26,21 @@ class DistributionBuilder {
         this._$target = false;
     }
 
-
     render(target, o, r) {
         if ((this._$target)) {
             this._$target.html('');
             this._$target.removeClass('distbuilder');
         }
         let parts = {
-            'grid': this._getGrid($target),
-            'labels': this._getLabels($target),
-            'buttons': this._getButtons($target)
+            'grid': this._createGrid($target),
+            'labels': this._createLabels($target),
+            'buttons': this._createButtons($target)
         };
-        var validOrder = new RegExp('(buttons-grid-labels)|(grid-labels-buttons)|(labels-grid-buttons)|(labels-buttons-grid)|(grid-buttons-labels)|(buttons-labels-grid)', 'g');
-        var $target = $j('#' + target); //Target Div of Grid
+        let validOrder = new RegExp('(buttons-grid-labels)|(grid-labels-buttons)|(labels-grid-buttons)|(labels-buttons-grid)|(grid-buttons-labels)|(buttons-labels-grid)', 'g');
+        let $target = $j('#' + target); //Target Div of Grid
         this._$target = $target;
         $target.addClass('distbuilder');
         let order = o ? o : "grid-labels-buttons";
-        let resize = r ? r : true;
         if (!validOrder.test(order)) {
             throw ("The order '" + o + "' could not be understood. Make sure " +
             "that the order is any combination of 'labels', 'grid', and " +
@@ -51,13 +49,15 @@ class DistributionBuilder {
             let renderorder = order.split('-');
             renderorder.map((e) => $target.append(parts[e]))
         }
-        if (resize) {
-            this._resizeGrid();
+        /* ResizeGrid is now deprecated. Keeping in the code for legacy reasons.
+        if (!(r === false)) {
+            //this._resizeGrid(); //
         }
+        */
     }
 
     labelize(o) {
-        var obj = o ? o : {};
+        let obj = o ? o : {};
         let values = [];
         if (obj.hasOwnProperty('labels')) {
             values = obj.labels
@@ -120,16 +120,18 @@ class DistributionBuilder {
         }
     }
 
+    /* ResizeGrid is deprecated.
     _resizeGrid() {
-        var rowwidth = (this._$target.find('>.grid>.distrow').width() - 5) / this.nBuckets;
-        var cellwidth = this._$target.find('>.grid>.distrow>.cell').outerWidth();
-        var cellmargin = (rowwidth - cellwidth) / 2;
+        let rowwidth = (this._$target.find('>.grid>.distrow').width() - 5) / this.nBuckets;
+        let cellwidth = this._$target.find('>.grid>.distrow>.cell').outerWidth();
+        let cellmargin = (rowwidth - cellwidth) / 2;
         this._$target.find('>.grid>.distrow>.cell').css({'margin-left': cellmargin, 'margin-right': cellmargin});
         this._$target.find('>.buttons>.distrow>.buttongroup').css({'width': rowwidth});
         this._$target.find('>.labels>.distrow>.label').css({'width': rowwidth});
     }
+    */
 
-    _getGrid($target) {
+    _createGrid($target) {
         let nRows = this.nRows;
         let nBuckets = this.nBuckets;
         let $grid = $j('<div>', {class: "grid"}); //Div holding the grid
@@ -138,6 +140,8 @@ class DistributionBuilder {
             let $lineDiv = $j('<div>', {class: "distrow row" + rowIndex});
             for (let col = 0; col < nBuckets; col++) { // Create as many cells as needed
                 let $colDiv = $j("<div>", {"class": "cell " + "col" + col});
+                let $ball = $j("<div>", {"class": "ball " + "col" + col});
+                $colDiv.append($ball);
                 $lineDiv.append($colDiv); // Add each cell to the row
             }
             $grid.append($lineDiv); // Add each row to the grid div
@@ -145,7 +149,7 @@ class DistributionBuilder {
         return $grid
     }
 
-    _getButtons($target) {
+    _createButtons($target) {
         let incrementAction = this._actionCreator('increment'); //Currying functions
         let decrementAction = this._actionCreator('decrement'); //Currying functions
         let $lineDivButtons = $j("<div>", {class: "distrow"});
@@ -168,7 +172,7 @@ class DistributionBuilder {
         return $buttons
     }
 
-    _getLabels($target) {
+    _createLabels($target) {
         let $labels = $j('<div>', {class: "labels"}); //Div holding the buttons
         let $lineDivLabels = $j("<div>", {"class": "distrow"});
         for (let col = 0; col < this.nBuckets; col++) {

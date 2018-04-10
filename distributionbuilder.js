@@ -10369,16 +10369,15 @@
 	                this._$target.removeClass('distbuilder');
 	            }
 	            var parts = {
-	                'grid': this._getGrid($target),
-	                'labels': this._getLabels($target),
-	                'buttons': this._getButtons($target)
+	                'grid': this._createGrid($target),
+	                'labels': this._createLabels($target),
+	                'buttons': this._createButtons($target)
 	            };
 	            var validOrder = new RegExp('(buttons-grid-labels)|(grid-labels-buttons)|(labels-grid-buttons)|(labels-buttons-grid)|(grid-buttons-labels)|(buttons-labels-grid)', 'g');
 	            var $target = $j('#' + target); //Target Div of Grid
 	            this._$target = $target;
 	            $target.addClass('distbuilder');
 	            var order = o ? o : "grid-labels-buttons";
-	            var resize = r ? r : true;
 	            if (!validOrder.test(order)) {
 	                throw "The order '" + o + "' could not be understood. Make sure " + "that the order is any combination of 'labels', 'grid', and " + "'button, separated by '-'.";
 	            } else {
@@ -10387,7 +10386,7 @@
 	                    return $target.append(parts[e]);
 	                });
 	            }
-	            if (resize) {
+	            if (!(r === false)) {
 	                this._resizeGrid();
 	            }
 	        }
@@ -10484,7 +10483,7 @@
 	            this._$target.find('>.labels>.distrow>.label').css({ 'width': rowwidth });
 	        }
 	    }, {
-	        key: '_getGrid',
+	        key: '_createGrid',
 	        value: function _getGrid($target) {
 	            var nRows = this.nRows;
 	            var nBuckets = this.nBuckets;
@@ -10496,6 +10495,8 @@
 	                for (var col = 0; col < nBuckets; col++) {
 	                    // Create as many cells as needed
 	                    var $colDiv = $j("<div>", { "class": "cell " + "col" + col });
+	                    var $ball = $j("<div>", { "class": "ball " + "col" + col });
+	                    $colDiv.append($ball);
 	                    $lineDiv.append($colDiv); // Add each cell to the row
 	                }
 	                $grid.append($lineDiv); // Add each row to the grid div
