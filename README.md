@@ -18,7 +18,7 @@ the distribution builder can now be changed more easily.
 
 
 ### v1.0
-First release of the library.
+* First release of the library.
 
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.166736.svg)](https://doi.org/10.5281/zenodo.166736)
