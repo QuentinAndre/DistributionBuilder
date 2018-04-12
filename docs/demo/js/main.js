@@ -10351,16 +10351,15 @@
 	                this._$target.removeClass('distbuilder');
 	            }
 	            var parts = {
-	                'grid': this._getGrid($target),
-	                'labels': this._getLabels($target),
-	                'buttons': this._getButtons($target)
+	                'grid': this._createGrid($target),
+	                'labels': this._createLabels($target),
+	                'buttons': this._createButtons($target)
 	            };
 	            var validOrder = new RegExp('(buttons-grid-labels)|(grid-labels-buttons)|(labels-grid-buttons)|(labels-buttons-grid)|(grid-buttons-labels)|(buttons-labels-grid)', 'g');
 	            var $target = $j('#' + target); //Target Div of Grid
 	            this._$target = $target;
 	            $target.addClass('distbuilder');
 	            var order = o ? o : "grid-labels-buttons";
-	            var resize = r ? r : true;
 	            if (!validOrder.test(order)) {
 	                throw "The order '" + o + "' could not be understood. Make sure " + "that the order is any combination of 'labels', 'grid', and " + "'button, separated by '-'.";
 	            } else {
@@ -10369,9 +10368,11 @@
 	                    return $target.append(parts[e]);
 	                });
 	            }
-	            if (resize) {
-	                this._resizeGrid();
+	            /* ResizeGrid is now deprecated. Keeping in the code for legacy reasons.
+	            if (!(r === false)) {
+	                //this._resizeGrid(); //
 	            }
+	            */
 	        }
 	    }, {
 	        key: 'labelize',
@@ -10410,7 +10411,7 @@
 	    }, {
 	        key: 'getDistribution',
 	        value: function getDistribution() {
-	            return this.distribution;
+	            return this.distribution.slice();
 	        }
 	    }, {
 	        key: '_setLabels',
@@ -10455,19 +10456,21 @@
 	                };
 	            }
 	        }
-	    }, {
-	        key: '_resizeGrid',
-	        value: function _resizeGrid() {
-	            var rowwidth = (this._$target.find('>.grid>.distrow').width() - 5) / this.nBuckets;
-	            var cellwidth = this._$target.find('>.grid>.distrow>.cell').outerWidth();
-	            var cellmargin = (rowwidth - cellwidth) / 2;
-	            this._$target.find('>.grid>.distrow>.cell').css({ 'margin-left': cellmargin, 'margin-right': cellmargin });
-	            this._$target.find('>.buttons>.distrow>.buttongroup').css({ 'width': rowwidth });
-	            this._$target.find('>.labels>.distrow>.label').css({ 'width': rowwidth });
+
+	        /* ResizeGrid is deprecated.
+	        _resizeGrid() {
+	            let rowwidth = (this._$target.find('>.grid>.distrow').width() - 5) / this.nBuckets;
+	            let cellwidth = this._$target.find('>.grid>.distrow>.cell').outerWidth();
+	            let cellmargin = (rowwidth - cellwidth) / 2;
+	            this._$target.find('>.grid>.distrow>.cell').css({'margin-left': cellmargin, 'margin-right': cellmargin});
+	            this._$target.find('>.buttons>.distrow>.buttongroup').css({'width': rowwidth});
+	            this._$target.find('>.labels>.distrow>.label').css({'width': rowwidth});
 	        }
+	        */
+
 	    }, {
-	        key: '_getGrid',
-	        value: function _getGrid($target) {
+	        key: '_createGrid',
+	        value: function _createGrid($target) {
 	            var nRows = this.nRows;
 	            var nBuckets = this.nBuckets;
 	            var $grid = $j('<div>', { class: "grid" }); //Div holding the grid
@@ -10478,6 +10481,8 @@
 	                for (var col = 0; col < nBuckets; col++) {
 	                    // Create as many cells as needed
 	                    var $colDiv = $j("<div>", { "class": "cell " + "col" + col });
+	                    var $ball = $j("<div>", { "class": "ball " + "col" + col });
+	                    $colDiv.append($ball);
 	                    $lineDiv.append($colDiv); // Add each cell to the row
 	                }
 	                $grid.append($lineDiv); // Add each row to the grid div
@@ -10485,8 +10490,8 @@
 	            return $grid;
 	        }
 	    }, {
-	        key: '_getButtons',
-	        value: function _getButtons($target) {
+	        key: '_createButtons',
+	        value: function _createButtons($target) {
 	            var incrementAction = this._actionCreator('increment'); //Currying functions
 	            var decrementAction = this._actionCreator('decrement'); //Currying functions
 	            var $lineDivButtons = $j("<div>", { class: "distrow" });
@@ -10503,8 +10508,8 @@
 	            return $buttons;
 	        }
 	    }, {
-	        key: '_getLabels',
-	        value: function _getLabels($target) {
+	        key: '_createLabels',
+	        value: function _createLabels($target) {
 	            var $labels = $j('<div>', { class: "labels" }); //Div holding the buttons
 	            var $lineDivLabels = $j("<div>", { "class": "distrow" });
 	            for (var col = 0; col < this.nBuckets; col++) {
