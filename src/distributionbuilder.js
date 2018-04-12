@@ -80,7 +80,7 @@ class DistributionBuilder {
     }
 
     getDistribution() {
-        return this.distribution;
+        return this.distribution.slice();
     }
 
     _setLabels(labels) {

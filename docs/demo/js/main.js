@@ -10368,9 +10368,11 @@
 	                    return $target.append(parts[e]);
 	                });
 	            }
+	            /* ResizeGrid is now deprecated. Keeping in the code for legacy reasons.
 	            if (!(r === false)) {
-	                this._resizeGrid();
+	                //this._resizeGrid(); //
 	            }
+	            */
 	        }
 	    }, {
 	        key: 'labelize',
@@ -10409,7 +10411,7 @@
 	    }, {
 	        key: 'getDistribution',
 	        value: function getDistribution() {
-	            return this.distribution;
+	            return this.distribution.slice();
 	        }
 	    }, {
 	        key: '_setLabels',
@@ -10454,19 +10456,21 @@
 	                };
 	            }
 	        }
-	    }, {
-	        key: '_resizeGrid',
-	        value: function _resizeGrid() {
-	            var rowwidth = (this._$target.find('>.grid>.distrow').width() - 5) / this.nBuckets;
-	            var cellwidth = this._$target.find('>.grid>.distrow>.cell').outerWidth();
-	            var cellmargin = (rowwidth - cellwidth) / 2;
-	            this._$target.find('>.grid>.distrow>.cell').css({ 'margin-left': cellmargin, 'margin-right': cellmargin });
-	            this._$target.find('>.buttons>.distrow>.buttongroup').css({ 'width': rowwidth });
-	            this._$target.find('>.labels>.distrow>.label').css({ 'width': rowwidth });
+
+	        /* ResizeGrid is deprecated.
+	        _resizeGrid() {
+	            let rowwidth = (this._$target.find('>.grid>.distrow').width() - 5) / this.nBuckets;
+	            let cellwidth = this._$target.find('>.grid>.distrow>.cell').outerWidth();
+	            let cellmargin = (rowwidth - cellwidth) / 2;
+	            this._$target.find('>.grid>.distrow>.cell').css({'margin-left': cellmargin, 'margin-right': cellmargin});
+	            this._$target.find('>.buttons>.distrow>.buttongroup').css({'width': rowwidth});
+	            this._$target.find('>.labels>.distrow>.label').css({'width': rowwidth});
 	        }
+	        */
+
 	    }, {
 	        key: '_createGrid',
-	        value: function _getGrid($target) {
+	        value: function _createGrid($target) {
 	            var nRows = this.nRows;
 	            var nBuckets = this.nBuckets;
 	            var $grid = $j('<div>', { class: "grid" }); //Div holding the grid
@@ -10486,8 +10490,8 @@
 	            return $grid;
 	        }
 	    }, {
-	        key: '_getButtons',
-	        value: function _getButtons($target) {
+	        key: '_createButtons',
+	        value: function _createButtons($target) {
 	            var incrementAction = this._actionCreator('increment'); //Currying functions
 	            var decrementAction = this._actionCreator('decrement'); //Currying functions
 	            var $lineDivButtons = $j("<div>", { class: "distrow" });
@@ -10504,8 +10508,8 @@
 	            return $buttons;
 	        }
 	    }, {
-	        key: '_getLabels',
-	        value: function _getLabels($target) {
+	        key: '_createLabels',
+	        value: function _createLabels($target) {
 	            var $labels = $j('<div>', { class: "labels" }); //Div holding the buttons
 	            var $lineDivLabels = $j("<div>", { "class": "distrow" });
 	            for (var col = 0; col < this.nBuckets; col++) {
