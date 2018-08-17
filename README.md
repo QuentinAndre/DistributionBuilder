@@ -1,4 +1,4 @@
-# DistributionBuilder
+# distBuilder
 A Javascript library to conveniently add distribution builders to your online and offline experiments.
 
 ## Changelog:
