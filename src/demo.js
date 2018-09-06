@@ -1,5 +1,6 @@
-import DistributionBuilder from './distributionbuilder'
+import DistributionBuilder from './distributionbuilder.ts'
 import jQuery from 'jquery';
+
 var $j = jQuery.noConflict();
 
 $j(document).ready(function () {

@@ -1,2 +1,1 @@
-require('expose?$j!expose?jQuery!jquery');
-require("expose?DistributionBuilder!./distributionbuilder.js");
+module.exports = require('./distributionbuilder.ts').default;
