@@ -2,11 +2,13 @@
  * Created by Quentin André on 07/10/2016.
  */
 import * as jQuery from "jquery";
+import "jquery";
 import './distributionbuilder.css';
 import "bootstrap-webpack!./bootstrap.config.js";
 
 var $j = jQuery.noConflict();
 import MouseHold from './../dependencies/mousehold'
+
 MouseHold($j);
 
 interface InitConfigObject {
@@ -70,7 +72,7 @@ class DistributionBuilder {
         this._$target = $j('<div></div>');
     }
 
-    render(target: string, order: ValidRenderOrder, r: boolean) {
+    render(target: string, order: ValidRenderOrder, r: boolean): void {
         if (r) {
             console.warn("The 'resize' argument has been deprecated.");
         }
@@ -98,7 +100,7 @@ class DistributionBuilder {
         }
     }
 
-    labelize(o: LabelizeConfigObject) {
+    labelize(o: LabelizeConfigObject): void {
         let obj = o ? o : {};
         let values = [];
         if (obj.hasOwnProperty('labels')) {
@@ -113,11 +115,11 @@ class DistributionBuilder {
         this._setLabels(labels)
     }
 
-    isComplete() {
+    isComplete(): boolean {
         return (this.remainingBalls == 0);
     }
 
-    getRemainingBalls() {
+    getRemainingBalls(): number {
         return this.remainingBalls;
     }
 
@@ -125,14 +127,14 @@ class DistributionBuilder {
         return this.distribution.slice();
     }
 
-    _setLabels(labels: Array<string>) {
+    _setLabels(labels: Array<string>): void {
         labels.forEach((l, i) => {
             let label = this._$target.find('.label' + i);
             label.html(l);
         })
     }
 
-    _actionCreator(action: ValidButtonAction) {
+    _actionCreator(action: ValidButtonAction): Function {
         if (action == 'increment') {
             return (bucket: number) => {
                 return () => {
@@ -162,7 +164,7 @@ class DistributionBuilder {
         }
     }
 
-    _createGrid($target: JQuery<HTMLElement>) {
+    _createGrid($target: JQuery<HTMLElement>): JQuery<HTMLElement> {
         let nRows = this.nRows;
         let nBuckets = this.nBuckets;
         let $grid = $j('<div>', {class: "grid"}); //Div holding the grid
@@ -180,7 +182,7 @@ class DistributionBuilder {
         return $grid
     }
 
-    _createButtons($target: JQuery<HTMLElement>) {
+    _createButtons($target: JQuery<HTMLElement>): JQuery<HTMLElement> {
         let incrementAction = this._actionCreator('increment'); //Currying functions
         let decrementAction = this._actionCreator('decrement'); //Currying functions
         let $lineDivButtons = $j("<div>", {class: "distrow"});
@@ -203,7 +205,7 @@ class DistributionBuilder {
         return $buttons
     }
 
-    _createLabels($target: JQuery<HTMLElement>) {
+    _createLabels($target: JQuery<HTMLElement>): JQuery<HTMLElement> {
         let $labels = $j('<div>', {class: "labels"}); //Div holding the buttons
         let $lineDivLabels = $j("<div>", {"class": "distrow"});
         for (let col = 0; col < this.nBuckets; col++) {
