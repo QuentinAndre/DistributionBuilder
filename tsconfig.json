@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "lib": ["dom", "es6"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noUnusedLocals": true,
+    "outDir": "./lib",
+    "target": "es6",
+    "strict": true,
+    "strictNullChecks": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "types": []
+  },
+  "include": ["src/*"]
+}
