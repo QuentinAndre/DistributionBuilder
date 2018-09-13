@@ -1,0 +1,88 @@
+/* Distbuilder */
+
+.distbuilder {
+    border-width: 2px;
+    border-color: grey;
+    border-style: solid;
+    padding: 2px;
+}
+
+/* Grid */
+
+.distbuilder > .grid {
+    background-color: lightsteelblue;
+    width: 100%;
+    padding-bottom: 2px;
+    padding-top: 5px;
+}
+
+.distbuilder > .grid > .distrow {
+    display: flex;
+}
+
+.distbuilder > .grid > .distrow > .cell {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.distbuilder > .grid > .distrow > .cell > .ball {
+    margin-bottom: 1px;
+    height: 10px;
+    width: 10px;
+    border: 1px solid white;
+    border-radius: 50%;
+    align-self: center;
+}
+
+.distbuilder > .grid > .distrow > .filled > .ball  {
+    background-color: #FF4500;
+}
+
+/* Labels */
+
+.distbuilder > .labels {
+    background-color: steelblue;
+    width: 100%;
+}
+
+.distbuilder > .labels > .distrow {
+    display: flex;
+    width: 100%;
+}
+
+.distbuilder > .labels > .distrow > .label {
+    color: white;
+    float: left;
+    text-align: center;
+    font-size: 0.8em;
+    flex: 1;
+}
+
+/* Buttons */
+
+.distbuilder > .buttons {
+    background-color: steelblue;
+    width: 100%;
+}
+
+.distbuilder > .buttons > .distrow {
+    display: flex;
+    width: 100%;
+}
+
+.distbuilder > .buttons > .distrow > .buttongroup {
+    text-align: center;
+    flex: 1;
+    padding-bottom: 5px;
+}
+
+.distbuilder > .buttons > .distrow > .buttongroup > .distbutton {
+    border-radius: 10%;
+    width: 60%;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    background-color: lightgrey;
+}
+
