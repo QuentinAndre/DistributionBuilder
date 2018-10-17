@@ -1,5 +1,5 @@
 {
-  "name": "distBuilder",
+  "name": "distbuilder",
   "version": "1.2.0",
   "description": "A distribution builder for economic and psychology experiments. Based on Goldstein and Rothschild's 2014 paper 'Lay understanding of probability distributions'.",
   "main": "index.js",
