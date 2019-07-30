@@ -38,7 +38,8 @@ declare class DistributionBuilder {
     labelize(o: LabelizeConfigObject): void;
     isComplete(): boolean;
     getRemainingBalls(): number;
-    getDistribution(): number[];
+    getDistribution(): Array<number>;
+    setDistribution(dist: Array<number>): void;
     _setLabels(labels: Array<string>): void;
     _actionCreator(action: ValidButtonAction): Function;
     _createGrid($target: JQuery<HTMLElement>): JQuery<HTMLElement>;

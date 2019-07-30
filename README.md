@@ -3,7 +3,12 @@ A Javascript library to conveniently add distribution builders to your online an
 
 ## Changelog:
 
-### v1.2 (master)
+### v1.3 (master)
+* Added method: `DistributionBuilder.setDistribution()`. This function is useful if you want the user to start from
+a pre-specified distribution. Thanks to Roy Hsieh for the suggestion!
+
+
+### v1.2
 * Minor changes to CSS to enhance compatibility with Qualtrics.
 * distBuilder has been rewritten in Typescript. This does not affect the behavior of the library in any
 way, but makes it easier for developers to build more complex apps on top of distBuilder.

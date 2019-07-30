@@ -62,10 +62,23 @@ $j(document).ready(function () {
             suffix: '€'
         });
 
+        var distbuilder4 = new DistributionBuilder({
+            minVal: 0,
+            maxVal: 100,
+            nRows: 10,
+            nBuckets: 10,
+            nBalls: 60
+        });
+        var dist = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        distbuilder4.render("targetdiv4");
+        distbuilder4.labelize();
+        distbuilder4.setDistribution(dist);
+
+
         var n_balls = 10;
         $j('#BallsLeft').text("You have " + n_balls + " balls left.");
         $j('#BallsAllocated').text("You have allocated " + 0 + " balls.");
-        var distbuilder4 = new DistributionBuilder({
+        var distbuilder5 = new DistributionBuilder({
             minVal: 0,
             maxVal: 100,
             nRows: 10,
@@ -81,10 +94,10 @@ $j(document).ready(function () {
             }
         });
 
-        distbuilder4.render("targetdiv4");
-        distbuilder4.labelize({});
+        distbuilder5.render("targetdiv5");
+        distbuilder5.labelize({});
 
-        var distbuilder5 = new DistributionBuilder({
+        var distbuilder6 = new DistributionBuilder({
             minVal: 0,
             maxVal: 100,
             nRows: 10,
@@ -98,13 +111,13 @@ $j(document).ready(function () {
                 }
             }
         });
-        distbuilder5.render("targetdiv5");
-        distbuilder5.labelize({});
+        distbuilder6.render("targetdiv6");
+        distbuilder6.labelize({});
         $j("#SubmitDistribution1").click(function () {
             alert("Distribution Validated!")
         });
 
-        var distbuilder6 = new DistributionBuilder({
+        var distbuilder7 = new DistributionBuilder({
             minVal: 0,
             maxVal: 100,
             nRows: 10,
@@ -118,13 +131,14 @@ $j(document).ready(function () {
                 }
             }
         });
-        distbuilder6.render("targetdiv6");
-        distbuilder6.labelize({});
+        distbuilder7.render("targetdiv7");
+        distbuilder7.labelize({});
         $j("#SubmitDistribution2").click(function () {
-            var message = "The distribution specified by the user is: " + distbuilder6.getDistribution();
+            var message = "The distribution specified by the user is: " + distbuilder7.getDistribution();
             alert(message)
         });
-        var distbuilder7 = new DistributionBuilder({
+
+        var distbuilder8 = new DistributionBuilder({
             minVal: 0,
             maxVal: 100,
             nRows: 10,
@@ -138,11 +152,11 @@ $j(document).ready(function () {
                 }
             }
         });
-        distbuilder7.render("targetdiv7");
-        distbuilder7.labelize({});
+        distbuilder8.render("targetdiv8");
+        distbuilder8.labelize({});
         $j("#SubmitDistribution3").click(function () {
             var message = 'The function "Qualtrics.SurveyEngine.setEmbeddedData("MyDistributionResult",  ';
-            message += distbuilder7.getDistribution().join() + ')" was called. Your data would have been stored in Qualtrics!';
+            message += distbuilder8.getDistribution().join() + ')" was called. Your data would have been stored in Qualtrics!';
             alert(message)
         });
 

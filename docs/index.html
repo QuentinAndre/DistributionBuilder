@@ -64,9 +64,10 @@
             distribution builders easy and accessible to researchers. The library is user-friendly, and requires very
             little programming knowledge to be used.</p>
         <h2>B. Citing distBuilder</h2>
-        <p>You can cite distBuilder using its <a href="https://doi.org/10.5281/zenodo.166736">Digital Object Identifier (DOI)</a>.</p>
+        <p>You can cite distBuilder using its <a href="https://doi.org/10.5281/zenodo.166736">Digital Object Identifier
+            (DOI)</a>.</p>
         <h2>C. About the author</h2>
-        <p>This library was developed by <strong>Quentin Andre</strong>, an assistant professor of Marketing at
+        <p>This library is developed by <strong>Quentin André</strong>, an assistant professor of Marketing at
             Rotterdam School of Management, Erasmus University, the Netherlands. If you have any comment, feedback
             or suggestion regarding this library or its documentation,
             please let me know at <a href="mailto:andre@rsm.nl">andre@rsm.nl</a> or use GitHub issues.</p>
@@ -258,7 +259,7 @@ distbuilder.labelize();
 </code></pre>
         </div>
         <h2>C. Labelize</h2>
-        <p>Finally, you generally want to add some labels to the buckets of your distribution builder:</p>
+        <p>You generally want to add some labels to the buckets of your distribution builder:</p>
         <p><code>DistributionBuilder.labelize()</code></p>
         <p>By default, the Distribution Builder automatically creates evenly spaced labels, using the distance between
             the minimum and maximum value and the number of buckets using the following code:</p>
@@ -302,8 +303,32 @@ distbuilder.labelize({
 });
 </code></pre>
         </div>
+        <h1>5. Changing the Distribution</h1>
+        <p>By default, respondents will start from an empty distribution (i.e. zero balls in all buckets).</p>
+        <p>However, you might want to specify a different starting distribution, or change the current distribution
+            to a specific value. To do so, you can use the method:</p>
+        <p><code>DistributionBuilder.setDistribution(dist)</code></p>
+        <p>Here is an example:</p>
+        <div class="highlight">
+<pre><code class="language-javascript">var distbuilder = new DistributionBuilder({
+    nRows: 10,
+    nBuckets: 10,
+    minVal: 0,
+    maxVal: 100,
+    nBalls: 60
+    });
+distbuilder.render();
+distbuilder.labelize(});
+var dist = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+distbuilder.setDistribution(dist);
+</code></pre>
+        </div>
+        <div class="bs-example">
+            <div id="targetdiv4" style="width:100%; margin: 0 auto;"></div>
+        </div>
 
-        <h1>5. Reading the Data</h1>
+
+        <h1>6. Reading the Data</h1>
         <p>After setting up the Distribution Builder, its internal state can be conveniently accessed through three
             methods:</p>
         <ul>
@@ -331,7 +356,7 @@ distbuilder.labelize({
         <div class="bs-example">
             <div id="BallsLeft"></div>
             <div id="BallsAllocated" style="text-align: right"></div>
-            <div id="targetdiv4" style="width:100%; margin: 0 auto;"></div>
+            <div id="targetdiv5" style="width:100%; margin: 0 auto;"></div>
         </div>
         <div class="highlight">
 
@@ -375,7 +400,7 @@ distbuilder.labelize();</code></pre>
             <div style="text-align: center;margin-bottom: 3px;">
                 <a class="btn btn-default" id="SubmitDistribution1" disabled=true> Submit Distribution </a>
             </div>
-            <div id="targetdiv5" style="width:100%; margin: 0 auto;"></div>
+            <div id="targetdiv6" style="width:100%; margin: 0 auto;"></div>
         </div>
 
         <div class="highlight">
@@ -407,7 +432,7 @@ distbuilder.labelize({});</code></pre>
             <div style="text-align: center;margin-bottom: 3px;">
                 <a class="btn btn-default" id="SubmitDistribution2" disabled=true> View Distribution </a>
             </div>
-            <div id="targetdiv6" style="width:100%; margin: 0 auto;"></div>
+            <div id="targetdiv7" style="width:100%; margin: 0 auto;"></div>
         </div>
 
         <div class="highlight">
@@ -456,7 +481,7 @@ distbuilder.labelize({});</code></pre>
             <div style="text-align: center;margin-bottom: 3px;">
                 <a class="btn btn-default" id="SubmitDistribution3" disabled=true> Store Distribution in Qualtrics </a>
             </div>
-            <div id="targetdiv7" style="width:100%; margin: 0 auto;"></div>
+            <div id="targetdiv8" style="width:100%; margin: 0 auto;"></div>
         </div>
 
         <div class="highlight">
@@ -484,7 +509,8 @@ $j("#SubmitDistribution").click(function () {
     alert(message)
 });</code></pre>
         </div>
-        <h1>6. CSS Specification</h1>
+
+        <h1>7. CSS Specification</h1>
         <p>If you want to customize the appearance of the distribution builder, the full list of classes defined by the
             stylesheet can be found in the <code>distributionbuilder.css</code> file.</p>
         <p> The following CSS tree will help you understand the mapping between the CSS classes and the way the
@@ -531,10 +557,10 @@ $j("#SubmitDistribution").click(function () {
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-        <h1>7. About</h1>
+        <h1>8. About</h1>
         <p>distBuilder is published under the <a
                 href="https://github.com/QuentinAndre/DistributionBuilder/blob/master/LICENSE" target="_blank">MIT
-            license</a>. The code is written in the Typescript, and is transpiled in legacy code
+            license</a>. The code is written in Typescript, and is transpiled in legacy code
             for cross-browsers compatibility. It is developed upon the <a href="https://jquery.com/" target="_blank">jQuery</a>
             library, and uses some elements of <a href="http://getbootstrap.com/getting-started/" target="_blank">Bootstrap</a>
             for styling.</p>
@@ -555,10 +581,10 @@ $j("#SubmitDistribution").click(function () {
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
         a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
+            m = s.getElementsByTagName(o)[0];
         a.async = 1;
         a.src = g;
         m.parentNode.insertBefore(a, m)

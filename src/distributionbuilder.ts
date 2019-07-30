@@ -123,9 +123,32 @@ class DistributionBuilder {
         return this.remainingBalls;
     }
 
-    getDistribution() {
+    getDistribution(): Array<number> {
         return this.distribution.slice();
     }
+
+    setDistribution(dist: Array<number>): void {
+        if (dist.length != this.nBuckets) {
+            throw ("The length of the entered distribution does not match the number of buckets")
+        }
+
+        let sumVals = dist.reduce((a, b) => a+b);
+        if (sumVals > this.nBalls) {
+            throw ("The number of balls in the distribution exceeds the number of balls.")
+        }
+
+        let maxVal = dist.reduce((a, b) => a >= b ? a : b);
+        if (maxVal > this.nRows) {
+            throw ("The number of balls in one or several buckets is greater than the number of rows.")
+        }
+        dist.map(
+            (i, j) => this._$target.find(".distrow > .col" + j).slice(this.nRows-i, this.nRows).map(
+                (a, x) => $j(x).addClass("filled")
+            )
+        );
+        this.distribution = dist;
+        this.remainingBalls = this.remainingBalls - sumVals;
+     }
 
     _setLabels(labels: Array<string>): void {
         labels.forEach((l, i) => {
