@@ -108,7 +108,8 @@
             </li>
             <li>
                 That's it! You can now add your own distribution builders in the "Custom Javascript" section of your
-                Qualtrics questions. No need to include jQuery! distBuilder automatically injects it, and makes
+                Qualtrics questions. Make sure to wrap the code in the <code>Qualtrics.SurveyEngine.addOnReady</code> section.
+                <br> You also do not need to include jQuery! distBuilder automatically injects it, and makes
                 it accessible under the <code>$j</code> alias. Instead of typing <code>$('#Hello')</code>, type <code>$j('#Hello')</code>.
             </li>
         </ol>
