@@ -19,7 +19,9 @@ $j(document).ready(function () {
             },
             onChange: function () {
                 console.log("Distbuilder was updated!");
-            }
+            },
+            addTotals: true,
+            toggleGridClick: true
         });
 
         var distbuilder2 = new DistributionBuilder({

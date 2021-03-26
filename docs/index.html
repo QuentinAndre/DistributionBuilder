@@ -68,9 +68,9 @@
             (DOI)</a>.</p>
         <h2>C. About the author</h2>
         <p>This library is developed by <strong>Quentin André</strong>, an assistant professor of Marketing at
-            Rotterdam School of Management, Erasmus University, the Netherlands. If you have any comment, feedback
+            the Leeds School of Business, University of Colorado Boulder. If you have any comment, feedback
             or suggestion regarding this library or its documentation,
-            please let me know at <a href="mailto:andre@rsm.nl">andre@rsm.nl</a> or use GitHub issues.</p>
+            please let me know at <a href="mailto:quentin.andre@colorado.edu">quentin.andre@colorado.edu</a> or use GitHub issues.</p>
 
         <h1>2. Installation</h1>
         <p>To add the library to your projects and start using distBuilder, just follow the instructions
@@ -191,6 +191,12 @@ distbuilder.labelize();</code></pre>
                 action is performed on non-filled/non-empty bucket, and when there are still balls available to
                 allocate).
             </li>
+            <li><code>toggleGridClick</code>, <em>(default: <code>false</code>)</em>: Allow/disallow participants to click
+                on the distBuilder to change the allocation of the balls.
+            </li>
+            <li><code>addTotals</code>, <em>(default: <code>false</code>)</em>: Add a row to the bottom of the distBuilder
+                summarizing how many balls are in each bucket.
+            </li>
         </ul>
         <div class="bs-example">
             <div id="targetdiv1" style="width:100%; margin: 0 auto;"></div>
@@ -207,7 +213,9 @@ distbuilder.labelize();</code></pre>
     },
     onChange: function () {
         console.log("Distbuilder was updated!")
-    }
+    },
+    toggleGridClick: true,
+    addTotals: true
     });
 distbuilder.render("targetdiv");
 distbuilder.labelize();</code></pre>
@@ -217,7 +225,7 @@ distbuilder.labelize();</code></pre>
             to see it displayed on the page:</p>
         <p><code>DistributionBuilder.render()</code></p>
         <p>This method requires the argument <code>target</code>, and you can optionally supply the <code>order</code>
-            and the <code>resize</code> arguments to further tweak the appearance of the Distribution Builder.</p>
+            argument to further tweak the appearance of the Distribution Builder.</p>
         <ul>
             <li>
                 <code>target</code>, <em>required argument</em>: The html <code>id</code> attribute of the element in
@@ -228,13 +236,6 @@ distbuilder.labelize();</code></pre>
                 <code>order</code>, <em>(default: ‘grid-labels-buttons’)</em>: The order in which the elements of the
                 Distribution Builder should be rendered. For instance, if you want to labels to appear above the grid,
                 you should specify ‘labels-grid-buttons’.
-            </li>
-            <li>
-                <code>resize</code>, <em>(default: true)</em>: By default, the render function is taking the size of the
-                target, dividing it by the number of buckets, and resize the labels, buttons, and grid accordingly. In
-                some rare cases (e.g. a very narrow target div, or a very large number of buckets), the resize may mess
-                up the labels. In that case, it is recommended that you change this argument to <code>false</code>, and
-                specify the width of the labels, grid, and buttons using css (see below for css specification).
             </li>
         </ul>
         Using this method to put the labels at the top of the Distribution Builder:
@@ -519,19 +520,21 @@ $j("#SubmitDistribution").click(function () {
         <pre><code class="html">&lt;div id="MyContainer" class="distbuilder"&gt;
     &lt;div class="grid"&gt;
         &lt;div class="distrow row2"&gt;
-            &lt;div id="col0" class="cell"&gt;&lt;/div&gt;
-            &lt;div id="col1" class="cell"&gt;&lt;/div&gt;
-            &lt;div id="col2" class="cell"&gt;&lt;/div&gt;
+            &lt;div class="cell col0"&gt;
+                &lt;div class="ball col0"&gt;&lt;/div&gt; // Present in all "cells"
+            &lt;/div&gt;
+            &lt;div class="cell col1"&gt;&lt;/div&gt;
+            &lt;div class="cell col2"&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="distrow row1"&gt;
-            &lt;div id="col0" class="cell filled"&gt;&lt;/div&gt;
-            &lt;div id="col1" class="cell"&gt;&lt;/div&gt;
-            &lt;div id="col2" class="cell"&gt;&lt;/div&gt;
+            &lt;div class="cell col0 filled"&gt;&lt;/div&gt;
+            &lt;div class="cell col1"&gt;&lt;/div&gt;
+            &lt;div class="cell col2"&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div class="distrow row0"&gt;
-            &lt;div id="col0" class="cell filled"&gt;&lt;/div&gt;
-            &lt;div id="col1" class="cell"&gt;&lt;/div&gt;
-            &lt;div id="col2" class="cell"&gt;&lt;/div&gt;
+            &lt;div class="cell col0 filled"&gt;&lt;/div&gt;
+            &lt;div class="cell col1"&gt;&lt;/div&gt;
+            &lt;div class="cell col2"&gt;&lt;/div&gt;
         &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class="buttons"&gt;
@@ -552,9 +555,16 @@ $j("#SubmitDistribution").click(function () {
     &lt;/div&gt;
     &lt;div class="labels"&gt;
         &lt;div class="distrow"&gt;
-            &lt;div id="label0" class="label"&gt;~1€&lt;/div&gt;
-            &lt;div id="label1" class="label"&gt;~2€&lt;/div&gt;
-            &lt;div id="label2" class="label"&gt;~3€&lt;/div&gt;
+            &lt;div class="label col0"&gt;~1€&lt;/div&gt;
+            &lt;div class="label col1"&gt;~2€&lt;/div&gt;
+            &lt;div class="label col2"&gt;~3€&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div class="totals"&gt; // Only present if argument `addTotals` is `true`.
+        &lt;div class="distrow"&gt;
+            &lt;div class="total col0"&gt;2&lt;/div&gt;
+            &lt;div class="total col1">0&lt;/div&gt;
+            &lt;div class="total col2">0&lt;/div&gt;
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -567,7 +577,7 @@ $j("#SubmitDistribution").click(function () {
             for styling.</p>
         <p>I am grateful for the financial support of ADL Partner and INSEAD, the comments of <a
                 href="http://www.colorado.edu/business/nicholas-reinholtz" target="_blank">Nicholas Reinholtz</a> and <a
-                href="http://www.colorado.edu/business/bart-de-langhe" target="_blank">Bart de Langhe</a> on previous
+                href="https://www.esade.edu/faculty/bart.delanghe" target="_blank">Bart de Langhe</a> on previous
             versions of the Distribution Builder, and <a href="http://www.dangoldstein.com/">Dan Goldstein</a>'s
             references on the history of the distribution builder. I would also like to thank <a
                     href="https://www.researchgate.net/profile/Ignazio_Ziano">Ignazio Ziano</a> for uncovering a bug

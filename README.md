@@ -3,8 +3,18 @@ A Javascript library to conveniently add distribution builders to your online an
 
 ## Changelog:
 
+### v1.4 (master)
+* Added arguments to the initialization of the distBuilder:
+  * `toggleGridClick`. If true, this argument allows user to add balls to bucket by clicking on the grid.
+  * `addTotals`. If true, add a "totals" row at the bottom of the distBuilder, summarizing how many balls are in each bucket.
+    Thanks to Marine Hainguerlot for the suggestion!
+  
+* Fixed rare bugs causing the visual aspect of the distBuilder to diverge from its internal state
+* Cleaned up the code and documentation. It should now be faster for larger distBuilders.
+
+
 ### v1.3 (master)
-* Added method: `DistributionBuilder.setDistribution()`. This function is useful if you want the user to start from
+* Added method: `distBuilder.setDistribution()`. This function is useful if you want the user to start from
 a pre-specified distribution. Thanks to Roy Hsieh for the suggestion!
 
 

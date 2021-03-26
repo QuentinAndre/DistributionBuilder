@@ -151,8 +151,10 @@ class DistributionBuilder {
         }
         this.distribution = dist;
         this.remainingBalls = this.remainingBalls - sumVals;
+        for (let col = 0; col < this.nBuckets; col++) {
+            this._updateGridCol(col, true);
+        }
         this._updateTotals();
-        this._updateGrid();
     }
 
     _setLabels(labels: Array<string>): void {
@@ -164,24 +166,24 @@ class DistributionBuilder {
 
     _buttonActionCreator(action: ValidButtonAction): Function {
         if (action == 'increment') {
-            return (bucket: number) => {
+            return (col: number) => {
                 return () => {
                     this.onTouch();
-                    if ((this.distribution[bucket] < (this.nRows)) && (this.remainingBalls > 0)) {
-                        this.distribution[bucket]++;
+                    if ((this.distribution[col] < (this.nRows)) && (this.remainingBalls > 0)) {
+                        this.distribution[col]++;
                         this.remainingBalls--;
-                        this._updateGrid();
+                        this._updateGridCol(col);
                     }
                 }
             }
         } else {
-            return (bucket: number) => {
+            return (col: number) => {
                 return () => {
                     this.onTouch();
-                    if (this.distribution[bucket] > 0) {
-                        this.distribution[bucket]--;
+                    if (this.distribution[col] > 0) {
+                        this.distribution[col]--;
                         this.remainingBalls++;
-                        this._updateGrid();
+                        this._updateGridCol(col);
                     }
                 }
             }
@@ -195,22 +197,19 @@ class DistributionBuilder {
                 let startRow = this.distribution[col]
                 let targetRow = row+1
                 let deltaRow = targetRow - startRow
-                console.log(this.remainingBalls)
-                console.log([targetRow, startRow, deltaRow])
-                console.log("---")
                 if (deltaRow < 0) { // We are removing balls
                     this.remainingBalls = this.remainingBalls - deltaRow;
                     this.distribution[col] = targetRow;
-                    this._updateGrid()
+                    this._updateGridCol(col)
                 } else if (deltaRow > 0) { // Adding balls
                     deltaRow = Math.min(this.remainingBalls, deltaRow)
                     this.remainingBalls = this.remainingBalls - deltaRow;
                     this.distribution[col] = startRow+deltaRow;
-                    this._updateGrid()
-                } else {
+                    this._updateGridCol(col)
+                } else { // Toggle current ball on/off
                     this.remainingBalls++
                     this.distribution[col]--
-                    this._updateGrid()
+                    this._updateGridCol(col)
                 }
             }
         }
@@ -293,16 +292,16 @@ class DistributionBuilder {
         })
     }
 
-    _updateGrid(){
-        let distrib = this.getDistribution();
+    _updateGridCol(col: number, silent=false){
+        let val = this.getDistribution()[col];
         let maxVal = this.nRows
-        distrib.forEach((value: number, index: number) => {
-            let $ballsDiv = $j(".cell.col"+index);
-            $ballsDiv.removeClass("filled")
-            $ballsDiv.slice(maxVal-value, maxVal).addClass("filled")
-        })
-        this.onChange();
-        this._updateTotals();
+        let $ballsDiv = this._$target.find(".cell.col"+col);
+        $ballsDiv.removeClass("filled")
+        $ballsDiv.slice(maxVal-val, maxVal).addClass("filled")
+        if (!silent){
+            this.onChange();
+            this._updateTotals();
+        }
     }
 
 }

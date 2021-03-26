@@ -55,6 +55,6 @@ declare class DistributionBuilder {
     _createLabels(): JQuery<HTMLElement>;
     _createTotals(): JQuery<HTMLElement>;
     _updateTotals(): void;
-    _updateGrid(): void;
+    _updateGridCol(col: number, silent?: boolean): void;
 }
 export default DistributionBuilder;
