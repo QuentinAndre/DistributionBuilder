@@ -50,10 +50,11 @@ declare class DistributionBuilder {
     _setLabels(labels: Array<string>): void;
     _buttonActionCreator(action: ValidButtonAction): Function;
     _gridActionCreator(row: number): Function;
-    _createGrid($target: JQuery<HTMLElement>): JQuery<HTMLElement>;
-    _createButtons($target: JQuery<HTMLElement>): JQuery<HTMLElement>;
-    _createLabels($target: JQuery<HTMLElement>): JQuery<HTMLElement>;
-    _createTotals($target: JQuery<HTMLElement>): JQuery<HTMLElement>;
+    _createGrid(): JQuery<HTMLElement>;
+    _createButtons(): JQuery<HTMLElement>;
+    _createLabels(): JQuery<HTMLElement>;
+    _createTotals(): JQuery<HTMLElement>;
     _updateTotals(): void;
+    _updateGrid(): void;
 }
 export default DistributionBuilder;

@@ -7,7 +7,7 @@ import "jquery";
 import './distributionbuilder.css';
 import "bootstrap-webpack!./bootstrap.config.js";
 
-var $j = jQuery.noConflict();
+let $j = jQuery.noConflict();
 import MouseHold from './../dependencies/mousehold'
 
 MouseHold($j);
@@ -70,14 +70,7 @@ class DistributionBuilder {
         this.addTotals = obj.hasOwnProperty('addTotals') ? obj.addTotals : false;
         this.onTouch = obj.hasOwnProperty('onTouch') ? obj.onTouch : () => {
         };
-        this.onChange = (
-            obj.hasOwnProperty('onChange') ?
-                () => {
-                    obj.onChange()
-                    this._updateTotals()
-                } :
-                this._updateTotals
-        );
+        this.onChange = obj.hasOwnProperty('onChange') ? obj.onChange : () => {};
         this.toggleGridClick = obj.hasOwnProperty('toggleGridClick') ? obj.toggleGridClick : false;
         this.remainingBalls = this.nBalls;
         this.distribution = new Array(this.nBuckets).fill(0);
@@ -94,9 +87,9 @@ class DistributionBuilder {
         }
         let $target = $j('#' + target); // Target Div of Grid
         let parts = {
-            'grid': this._createGrid($target),
-            'labels': this._createLabels($target),
-            'buttons': this._createButtons($target)
+            'grid': this._createGrid(),
+            'labels': this._createLabels(),
+            'buttons': this._createButtons()
         };
         let validOrder = new RegExp('(buttons-grid-labels)|(grid-labels-buttons)|(labels-grid-buttons)|(labels-buttons-grid)|(grid-buttons-labels)|(buttons-labels-grid)', 'g');
         this._$target = $target;
@@ -111,7 +104,7 @@ class DistributionBuilder {
             renderorder.forEach((e: string) => $target.append(parts[e]))
         }
         if (this.addTotals){
-            $target.append(this._createTotals($target))
+            $target.append(this._createTotals())
         }
     }
 
@@ -156,11 +149,6 @@ class DistributionBuilder {
         if (maxVal > this.nRows) {
             throw ("The number of balls in one or several buckets is greater than the number of rows.")
         }
-        dist.map(
-            (i, j) => this._$target.find(".distrow > .col" + j).slice(this.nRows - i, this.nRows).map(
-                (a, x) => $j(x).addClass("filled")
-            )
-        );
         this.distribution = dist;
         this.remainingBalls = this.remainingBalls - sumVals;
         this._updateTotals();
@@ -180,11 +168,9 @@ class DistributionBuilder {
                 return () => {
                     this.onTouch();
                     if ((this.distribution[bucket] < (this.nRows)) && (this.remainingBalls > 0)) {
-                        let rowIndex = this.distribution[bucket];
-                        this._$target.find(".row" + rowIndex + ">.col" + bucket).addClass("filled");
                         this.distribution[bucket]++;
                         this.remainingBalls--;
-                        this.onChange()
+                        this._updateGrid();
                     }
                 }
             }
@@ -194,10 +180,8 @@ class DistributionBuilder {
                     this.onTouch();
                     if (this.distribution[bucket] > 0) {
                         this.distribution[bucket]--;
-                        let rowIndex = this.distribution[bucket];
-                        this._$target.find(".row" + rowIndex + ">.col" + bucket).removeClass("filled");
                         this.remainingBalls++;
-                        this.onChange();
+                        this._updateGrid();
                     }
                 }
             }
@@ -209,28 +193,30 @@ class DistributionBuilder {
             return () => {
                 this.onTouch();
                 let startRow = this.distribution[col]
-                let targetRow = (this.nRows - row - 1); // Row number 0 is the bottom-most row.
-                let deltaRow = Math.min(targetRow - startRow + 1, this.remainingBalls)
+                let targetRow = row+1
+                let deltaRow = targetRow - startRow
+                console.log(this.remainingBalls)
+                console.log([targetRow, startRow, deltaRow])
+                console.log("---")
                 if (deltaRow < 0) { // We are removing balls
                     this.remainingBalls = this.remainingBalls - deltaRow;
                     this.distribution[col] = targetRow;
-                    this._$target.find(".distrow > .col" + col).get().reverse().slice(targetRow + 1, startRow).map(
-                        (x) => $j(x).removeClass("filled")
-                    )
-                    this.onChange();
+                    this._updateGrid()
                 } else if (deltaRow > 0) { // Adding balls
+                    deltaRow = Math.min(this.remainingBalls, deltaRow)
                     this.remainingBalls = this.remainingBalls - deltaRow;
-                    this.distribution[col] = startRow + deltaRow;
-                    this._$target.find(".distrow > .col" + col).get().reverse().slice(startRow, startRow + deltaRow).map(
-                        (x) => $j(x).addClass("filled")
-                    )
-                    this.onChange();
+                    this.distribution[col] = startRow+deltaRow;
+                    this._updateGrid()
+                } else {
+                    this.remainingBalls++
+                    this.distribution[col]--
+                    this._updateGrid()
                 }
             }
         }
     }
 
-    _createGrid($target: JQuery<HTMLElement>): JQuery<HTMLElement> {
+    _createGrid(): JQuery<HTMLElement> {
         let nRows = this.nRows;
         let nBuckets = this.nBuckets;
         let $grid = $j('<div>', {class: "grid"}); //Div holding the grid
@@ -238,7 +224,7 @@ class DistributionBuilder {
             let rowIndex = (nRows - row - 1); // Row number 0 is the bottom-most row.
             let $lineDiv = $j('<div>', {class: "distrow row" + rowIndex});
             for (let col = 0; col < nBuckets; col++) { // Create as many cells as needed
-                let clickAction = this._gridActionCreator(row)(col)
+                let clickAction = this._gridActionCreator(rowIndex)(col)
                 let $colDiv = $j("<div>", {"class": "cell " + "col" + col});
                 let $ball = $j("<div>", {"class": "ball " + "col" + col});
                 if (this.toggleGridClick) {
@@ -252,7 +238,7 @@ class DistributionBuilder {
         return $grid
     }
 
-    _createButtons($target: JQuery<HTMLElement>): JQuery<HTMLElement> {
+    _createButtons(): JQuery<HTMLElement> {
         let incrementAction = this._buttonActionCreator('increment'); //Currying functions
         let decrementAction = this._buttonActionCreator('decrement'); //Currying functions
         let $lineDivButtons = $j("<div>", {class: "distrow"});
@@ -275,7 +261,7 @@ class DistributionBuilder {
         return $buttons
     }
 
-    _createLabels($target: JQuery<HTMLElement>): JQuery<HTMLElement> {
+    _createLabels(): JQuery<HTMLElement> {
         let $labels = $j('<div>', {class: "labels"}); //Div holding the labels
         let $lineDivLabels = $j("<div>", {"class": "distrow"});
         for (let col = 0; col < this.nBuckets; col++) {
@@ -286,7 +272,7 @@ class DistributionBuilder {
         return $labels
     }
 
-    _createTotals($target: JQuery<HTMLElement>): JQuery<HTMLElement> {
+    _createTotals(): JQuery<HTMLElement> {
         let distrib = this.getDistribution();
         let $totals = $j('<div>', {class: "totals"}); //Div holding the buttons
         let $lineDivTotals = $j("<div>", {"class": "distrow"});
@@ -315,6 +301,8 @@ class DistributionBuilder {
             $ballsDiv.removeClass("filled")
             $ballsDiv.slice(maxVal-value, maxVal).addClass("filled")
         })
+        this.onChange();
+        this._updateTotals();
     }
 
 }
