@@ -1,6 +1,7 @@
 /**
  * Created by Quentin André on 07/10/2016.
  */
+
 import * as jQuery from "jquery";
 import "jquery";
 import './distributionbuilder.css';
@@ -19,7 +20,8 @@ interface InitConfigObject {
     nBuckets?: number
     onTouch?: Function
     onChange?: Function
-
+    addTotals?: boolean
+    toggleGridClick?: boolean
 }
 
 interface LabelizeConfigObject {
@@ -38,7 +40,7 @@ type ValidRenderOrder =
     "buttons-grid-labels"
     | "grid-labels-buttons"
     | "labels-grid-buttons"
-    | "-buttons-grid"
+    | "labels-buttons-grid"
     | "grid-buttons-labels"
     | "buttons-labels-grid";
 
@@ -55,6 +57,8 @@ class DistributionBuilder {
     _$target: JQuery<HTMLElement>;
     onTouch: Function;
     onChange: Function;
+    toggleGridClick: Boolean;
+    addTotals: Boolean;
 
     constructor(o: InitConfigObject) {
         let obj = o ? o : {};
@@ -63,17 +67,25 @@ class DistributionBuilder {
         this.nBalls = obj.hasOwnProperty('nBalls') ? obj.nBalls : 10;
         this.nRows = obj.hasOwnProperty('nRows') ? obj.nRows : 10;
         this.nBuckets = obj.hasOwnProperty('nBuckets') ? obj.nBuckets : 10;
+        this.addTotals = obj.hasOwnProperty('addTotals') ? obj.addTotals : false;
         this.onTouch = obj.hasOwnProperty('onTouch') ? obj.onTouch : () => {
         };
-        this.onChange = obj.hasOwnProperty('onChange') ? obj.onChange : () => {
-        };
+        this.onChange = (
+            obj.hasOwnProperty('onChange') ?
+                () => {
+                    obj.onChange()
+                    this._updateTotals()
+                } :
+                this._updateTotals
+        );
+        this.toggleGridClick = obj.hasOwnProperty('toggleGridClick') ? obj.toggleGridClick : false;
         this.remainingBalls = this.nBalls;
         this.distribution = new Array(this.nBuckets).fill(0);
         this._$target = $j('<div></div>');
     }
 
-    render(target: string, order: ValidRenderOrder, r: boolean): void {
-        if (r) {
+    render(target: string, order: ValidRenderOrder, resize: boolean): void {
+        if (resize) {
             console.warn("The 'resize' argument has been deprecated.");
         }
         if ((this._$target)) { // Has already been rendered
@@ -97,6 +109,9 @@ class DistributionBuilder {
         } else {
             let renderorder = o.split('-');
             renderorder.forEach((e: string) => $target.append(parts[e]))
+        }
+        if (this.addTotals){
+            $target.append(this._createTotals($target))
         }
     }
 
@@ -132,7 +147,7 @@ class DistributionBuilder {
             throw ("The length of the entered distribution does not match the number of buckets")
         }
 
-        let sumVals = dist.reduce((a, b) => a+b);
+        let sumVals = dist.reduce((a, b) => a + b);
         if (sumVals > this.nBalls) {
             throw ("The number of balls in the distribution exceeds the number of balls.")
         }
@@ -142,13 +157,15 @@ class DistributionBuilder {
             throw ("The number of balls in one or several buckets is greater than the number of rows.")
         }
         dist.map(
-            (i, j) => this._$target.find(".distrow > .col" + j).slice(this.nRows-i, this.nRows).map(
+            (i, j) => this._$target.find(".distrow > .col" + j).slice(this.nRows - i, this.nRows).map(
                 (a, x) => $j(x).addClass("filled")
             )
         );
         this.distribution = dist;
         this.remainingBalls = this.remainingBalls - sumVals;
-     }
+        this._updateTotals();
+        this._updateGrid();
+    }
 
     _setLabels(labels: Array<string>): void {
         labels.forEach((l, i) => {
@@ -157,7 +174,7 @@ class DistributionBuilder {
         })
     }
 
-    _actionCreator(action: ValidButtonAction): Function {
+    _buttonActionCreator(action: ValidButtonAction): Function {
         if (action == 'increment') {
             return (bucket: number) => {
                 return () => {
@@ -187,6 +204,32 @@ class DistributionBuilder {
         }
     }
 
+    _gridActionCreator(row: number): Function {
+        return (col: number) => {
+            return () => {
+                this.onTouch();
+                let startRow = this.distribution[col]
+                let targetRow = (this.nRows - row - 1); // Row number 0 is the bottom-most row.
+                let deltaRow = Math.min(targetRow - startRow + 1, this.remainingBalls)
+                if (deltaRow < 0) { // We are removing balls
+                    this.remainingBalls = this.remainingBalls - deltaRow;
+                    this.distribution[col] = targetRow;
+                    this._$target.find(".distrow > .col" + col).get().reverse().slice(targetRow + 1, startRow).map(
+                        (x) => $j(x).removeClass("filled")
+                    )
+                    this.onChange();
+                } else if (deltaRow > 0) { // Adding balls
+                    this.remainingBalls = this.remainingBalls - deltaRow;
+                    this.distribution[col] = startRow + deltaRow;
+                    this._$target.find(".distrow > .col" + col).get().reverse().slice(startRow, startRow + deltaRow).map(
+                        (x) => $j(x).addClass("filled")
+                    )
+                    this.onChange();
+                }
+            }
+        }
+    }
+
     _createGrid($target: JQuery<HTMLElement>): JQuery<HTMLElement> {
         let nRows = this.nRows;
         let nBuckets = this.nBuckets;
@@ -195,8 +238,12 @@ class DistributionBuilder {
             let rowIndex = (nRows - row - 1); // Row number 0 is the bottom-most row.
             let $lineDiv = $j('<div>', {class: "distrow row" + rowIndex});
             for (let col = 0; col < nBuckets; col++) { // Create as many cells as needed
+                let clickAction = this._gridActionCreator(row)(col)
                 let $colDiv = $j("<div>", {"class": "cell " + "col" + col});
                 let $ball = $j("<div>", {"class": "ball " + "col" + col});
+                if (this.toggleGridClick) {
+                    $colDiv.click(clickAction)
+                }
                 $colDiv.append($ball);
                 $lineDiv.append($colDiv); // Add each cell to the row
             }
@@ -206,8 +253,8 @@ class DistributionBuilder {
     }
 
     _createButtons($target: JQuery<HTMLElement>): JQuery<HTMLElement> {
-        let incrementAction = this._actionCreator('increment'); //Currying functions
-        let decrementAction = this._actionCreator('decrement'); //Currying functions
+        let incrementAction = this._buttonActionCreator('increment'); //Currying functions
+        let decrementAction = this._buttonActionCreator('decrement'); //Currying functions
         let $lineDivButtons = $j("<div>", {class: "distrow"});
         let $buttons = $j('<div>', {class: "buttons"}); //Div holding the buttons
         for (let col = 0; col < this.nBuckets; col++) {
@@ -229,16 +276,46 @@ class DistributionBuilder {
     }
 
     _createLabels($target: JQuery<HTMLElement>): JQuery<HTMLElement> {
-        let $labels = $j('<div>', {class: "labels"}); //Div holding the buttons
+        let $labels = $j('<div>', {class: "labels"}); //Div holding the labels
         let $lineDivLabels = $j("<div>", {"class": "distrow"});
         for (let col = 0; col < this.nBuckets; col++) {
             let $divLabel = $j("<div>", {"class": "label" + " label" + col});
             $lineDivLabels.append($divLabel);
         }
-        $labels.append($lineDivLabels); // Add each row to the grid div
+        $labels.append($lineDivLabels); // Add the row to the div
         return $labels
     }
 
+    _createTotals($target: JQuery<HTMLElement>): JQuery<HTMLElement> {
+        let distrib = this.getDistribution();
+        let $totals = $j('<div>', {class: "totals"}); //Div holding the buttons
+        let $lineDivTotals = $j("<div>", {"class": "distrow"});
+        for (let col = 0; col < this.nBuckets; col++) {
+            let $divLabel = $j("<div>", {"class": "total" + " col" + col});
+            $divLabel.text(distrib[col]);
+            $lineDivTotals.append($divLabel);
+        }
+        $totals.append($lineDivTotals); // Add the row to the div
+        return $totals
+    }
+
+    _updateTotals(){
+        let $totals = this._$target.find(".totals > .distrow > .total");
+        let distrib = this.getDistribution();
+        $totals.each(function(i: number) {
+            $j(this).text(distrib[i]);
+        })
+    }
+
+    _updateGrid(){
+        let distrib = this.getDistribution();
+        let maxVal = this.nRows
+        distrib.forEach((value: number, index: number) => {
+            let $ballsDiv = $j(".cell.col"+index);
+            $ballsDiv.removeClass("filled")
+            $ballsDiv.slice(maxVal-value, maxVal).addClass("filled")
+        })
+    }
 
 }
 

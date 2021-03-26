@@ -85,3 +85,19 @@
     line-height: 1 !important;
     background-color: lightgrey;
 }
+
+.totals {
+  background-color: #FF4500;
+}
+
+.totals > .distrow {
+  display: flex;
+}
+
+.distbuilder > .totals > .distrow > .total {
+    color: white;
+    float: left;
+    text-align: center;
+    font-size: 0.8em;
+    flex: 1;
+}
