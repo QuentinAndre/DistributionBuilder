@@ -1,6 +1,6 @@
 {
   "name": "distbuilder",
-  "version": "1.4",
+  "version": "1.4.1",
   "description": "A distribution builder for economic and psychology experiments. Based on Goldstein and Rothschild's 2014 paper 'Lay understanding of probability distributions'.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
