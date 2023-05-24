@@ -247,11 +247,11 @@ class DistributionBuilder {
             let $addButton = $j('<a>', {class: "btn btn-default distbutton glyphicon glyphicon-plus"});
             let $removeButton = $j('<a>', {class: "btn btn-default distbutton glyphicon glyphicon-minus"});
             $divButtons.append($addButton
-                .mousehold(200, 100, incrementAction(col))
+                .mousehold(500, 100, incrementAction(col))
                 .click(incrementAction(col))
             );
             $divButtons.append($removeButton
-                .mousehold(200, 100, decrementAction(col))
+                .mousehold(500, 100, decrementAction(col))
                 .click(decrementAction(col))
             );
             $lineDivButtons.append($divButtons);
